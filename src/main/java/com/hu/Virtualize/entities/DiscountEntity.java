@@ -8,15 +8,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class UserInterestEntity {
+public class DiscountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userInterestId;
+    private Long discountId;
 
-    private String interest;
+    private String discountName;
+    private Integer discountPercentage;
+    private Date startDate;
+    private Date endDate;
 }

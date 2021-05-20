@@ -2,7 +2,6 @@ package com.hu.Virtualize.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
@@ -19,19 +18,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class UserEntity {
+public class AdminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long adminId;
 
-    private String userName;
-    private String userEmail;
-    private String userPassword;
-    private String location;
+    private String adminName;
+    private String adminEmail;
+    private String adminPassword;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn( name = "userId", referencedColumnName = "userId")
-    List<UserInterestEntity> userInterestEntitys = new ArrayList<>();
-
-
+    @JoinColumn( name = "adminId", referencedColumnName = "adminId")
+    List<ShopEntity> adminShops = new ArrayList<>();
 }
