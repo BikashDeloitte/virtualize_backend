@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Data
 @AllArgsConstructor
@@ -17,6 +18,9 @@ public class UserInterestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userInterestId;
+
+    @ManyToOne
+    private UserEntity user;
 
     private String interest;
 }

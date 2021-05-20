@@ -10,9 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -27,9 +31,19 @@ public class ProductEntity {
     private Integer productPrice;
     private String productType;
     private String productSize;
+
+    @Lob
     private Byte[] productImage;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn( name = "productId", referencedColumnName = "productId")
-    List<DiscountEntity> productDiscounts = new ArrayList<>();
+    @ManyToOne
+    private ShopEntity shop;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    Set<DiscountEntity> productDiscounts = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "user_product",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<UserEntity> users = new HashSet<>();
 }

@@ -2,7 +2,6 @@ package com.hu.Virtualize.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
@@ -10,10 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -29,9 +28,9 @@ public class UserEntity {
     private String userPassword;
     private String location;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn( name = "userId", referencedColumnName = "userId")
-    List<UserInterestEntity> userInterestEntitys = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    Set<UserInterestEntity> userInterestEntities = new HashSet<>();
 
-
+    @ManyToMany(mappedBy = "users")
+    private Set<ProductEntity> favouriteProducts = new HashSet<>();
 }

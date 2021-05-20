@@ -9,10 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +25,9 @@ public class ShopEntity {
 
     private String shopName;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn( name = "shopId", referencedColumnName = "shopId")
-    List<ProductEntity> shopProducts = new ArrayList<>();
+    @ManyToOne
+    private AdminEntity admin;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shop")
+    Set<ProductEntity> shopProducts = new HashSet<>();
 }

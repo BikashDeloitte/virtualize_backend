@@ -9,10 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -27,7 +26,6 @@ public class AdminEntity {
     private String adminEmail;
     private String adminPassword;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn( name = "adminId", referencedColumnName = "adminId")
-    List<ShopEntity> adminShops = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
+    Set<ShopEntity> adminShops = new HashSet<>();
 }
