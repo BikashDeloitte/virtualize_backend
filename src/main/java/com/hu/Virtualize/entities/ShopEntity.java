@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
@@ -25,9 +27,11 @@ public class ShopEntity {
 
     private String shopName;
 
-    @ManyToOne
-    private AdminEntity admin;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shop")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shopId", referencedColumnName = "shopId")
     Set<ProductEntity> shopProducts = new HashSet<>();
+
+    public ShopEntity(String shopName) {
+        this.shopName = shopName;
+    }
 }

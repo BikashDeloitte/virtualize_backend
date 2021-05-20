@@ -25,6 +25,15 @@ public class DiscountEntity {
     private Date startDate;
     private Date endDate;
 
-    @ManyToOne
-    private ProductEntity product;
+    public DiscountEntity(String discountName, Integer discountPercentage) {
+        this.discountName = discountName;
+        this.discountPercentage = discountPercentage;
+    }
+
+    public DiscountEntity(String discountName, Integer discountPercentage, Date startDate, Date endDate) {
+        this.discountName = discountName;
+        this.discountPercentage = discountPercentage;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }

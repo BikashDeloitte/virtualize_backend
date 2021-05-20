@@ -6,14 +6,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,15 +34,17 @@ public class ProductEntity {
     @Lob
     private Byte[] productImage;
 
-    @ManyToOne
-    private ShopEntity shop;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "productId", referencedColumnName = "productId")
     Set<DiscountEntity> productDiscounts = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "user_product",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @ManyToMany(targetEntity = UserEntity.class, cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<UserEntity> users = new HashSet<>();
+
+    public ProductEntity(String productName, Integer productPrice, String productType, String productSize) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productType = productType;
+        this.productSize = productSize;
+    }
 }

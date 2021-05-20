@@ -19,8 +19,9 @@ public class UserInterestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userInterestId;
 
-    @ManyToOne
-    private UserEntity user;
-
     private String interest;
+
+    public UserInterestEntity(String interest) {
+        this.interest = interest;
+    }
 }
