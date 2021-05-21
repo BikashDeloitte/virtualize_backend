@@ -41,24 +41,5 @@ public class UsersServiceImpl implements UsersService {
         return local;
     }
 
-    //Methods for creating Users
-//    @Override
-//    public Users createUser(Users users, Set<UserRole> userRoles) throws Exception {
-//
-//        Users local = this.usersRepository.findByusername(users.getUsername());
-//        if(local!=null){
-//            System.out.println("User Name already exists!");
-//            throw new Exception("UserName already exists!");
-//        }
-//        else{
-//            //Create New User
-//            for (UserRole ur: userRoles){
-//                rolesRepository.save(ur.getRoles());
-//            }
-//            users.getUserRoles().addAll(userRoles);
-//            local = this.usersRepository.save(users);
-//
-//        }
-//        return local;
-//    }
+
 }
