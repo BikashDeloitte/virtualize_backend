@@ -4,12 +4,11 @@ import com.hu.Virtualize.commands.LoginCommand;
 import com.hu.Virtualize.services.LoginService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/user")
+@CrossOrigin("*")
 public class LoginController {
     private final LoginService loginService;
 
@@ -19,6 +18,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginCommand loginCommand) {
+        System.out.println(loginCommand.toString());
         Object obj = loginService.login(loginCommand);
         if(obj == null ) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
