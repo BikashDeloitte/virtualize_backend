@@ -30,6 +30,7 @@ public class ProductEntity {
     private Integer productPrice;
     private String productType;
     private String productSize;
+    private String brandName;
 
     @Lob
     private Byte[] productImage;

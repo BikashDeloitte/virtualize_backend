@@ -85,12 +85,12 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         ShopEntity shop4 = new ShopEntity("FabIndia");
 
         // create product
-        ProductEntity product1 = new ProductEntity("Jeans",1200,"Men","M");
-        ProductEntity product2 = new ProductEntity("Jeans",1200,"Women","L");
-        ProductEntity product3 = new ProductEntity("Shirt",200,"Men","M");
-        ProductEntity product4 = new ProductEntity("Shirt",400,"Women","L");
-        ProductEntity product5 = new ProductEntity("t-shirt",800,"Men","M");
-        ProductEntity product6 = new ProductEntity("t-shirt",800,"Women","L");
+        ProductEntity product1 = new ProductEntity("Jeans",1200,"Male","M");
+        ProductEntity product2 = new ProductEntity("Jeans",1200,"Unisex","L");
+        ProductEntity product3 = new ProductEntity("Shirt",200,"Male","S");
+        ProductEntity product4 = new ProductEntity("Shirt",400,"Female","L");
+        ProductEntity product5 = new ProductEntity("t-shirt",800,"Unisex","M");
+        ProductEntity product6 = new ProductEntity("t-shirt",800,"Female","L");
 
         // create discount
         DiscountEntity discount1 = new DiscountEntity("Diwali offer", 5);
@@ -112,9 +112,18 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         // add products in shops
         shop1.setShopProducts(new HashSet<>(Arrays.asList(product1,product2)));
+        product1.setBrandName(shop1.getShopName());
+        product2.setBrandName(shop1.getShopName());
+
         shop2.setShopProducts(new HashSet<>(Arrays.asList(product3,product4)));
+        product3.setBrandName(shop2.getShopName());
+        product4.setBrandName(shop2.getShopName());
+
         shop3.setShopProducts(new HashSet<>(Arrays.asList(product5)));
+        product5.setBrandName(shop3.getShopName());
+
         shop4.setShopProducts(new HashSet<>(Arrays.asList(product6)));
+        product6.setBrandName(shop4.getShopName());
 
         // add shop in admin list
         admin1.setAdminShops(new HashSet<>(Arrays.asList(shop1,shop2)));
