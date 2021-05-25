@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +25,19 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public List<ProductEntity> getProduct() {
-        List<ProductEntity> productEntityOptional = productRepository.findAll();
+        List<ProductEntity> productEntities = productRepository.findAll();
 
-        return productEntityOptional;
+        productEntities.sort(new Comparator<ProductEntity>() {
+            @Override
+            public int compare(ProductEntity product1, ProductEntity product2) {
+                if(product1.getProductName().equals(product2.getProductName())) {
+                    return product1.getProductPrice() - product2.getProductPrice();
+                } else {
+                    return product1.getProductName().compareTo(product2.getProductName());
+                }
+            }
+        });
+        return productEntities;
     }
 
 

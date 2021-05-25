@@ -1,9 +1,14 @@
 package com.hu.Virtualize.services;
 
 import com.hu.Virtualize.entities.ShopEntity;
+import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.repositories.ShopRepository;
+import com.hu.Virtualize.repositories.ProductRepository;
+
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,9 +18,11 @@ import java.util.stream.Collectors;
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     private final ShopRepository shopRepository;
+    private final ProductRepository productRepository;
 
-    public ProductCategoryServiceImpl(ShopRepository shopRepository) {
+    public ProductCategoryServiceImpl(ShopRepository shopRepository, ProductRepository productRepository) {
         this.shopRepository = shopRepository;
+        this.productRepository = productRepository;
     }
 
     /**
@@ -32,6 +39,28 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             shopNames.add(shop.getShopName());
         }
 
-        return shopNames.stream().collect(Collectors.toList());
+        List<String> shops = new ArrayList<>(shopNames);
+        Collections.sort(shops);
+
+        return shops;
+    }
+
+    /**
+     * This function will return the all product names in shops.
+     * @return list of product.
+     */
+    public List<String> getProductNames() {
+        List<ProductEntity> productList = productRepository.findAll();
+
+        Set<String> productNames = new HashSet<>();
+
+        for(ProductEntity product: productList) {
+            productNames.add(product.getProductName());
+        }
+
+        List<String> products = new ArrayList<>(productNames);
+        Collections.sort(products);
+
+        return products;
     }
 }

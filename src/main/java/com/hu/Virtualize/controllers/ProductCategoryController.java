@@ -23,4 +23,14 @@ public class ProductCategoryController {
         List<String> shopsName = productCategoryService.getStoreName();
         return new ResponseEntity<>(shopsName, HttpStatus.OK);
     }
+
+    /**
+     * This function will return all available products in all shops.
+     * @return list of products.
+     */
+    @GetMapping("/products")
+    public ResponseEntity<?> getProductNames() {
+        List<String> productName = productCategoryService.getProductNames();
+        return new ResponseEntity<>(productName, HttpStatus.OK);
+    }
 }

@@ -89,8 +89,15 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         ProductEntity product2 = new ProductEntity("Jeans",1200,"Unisex","L");
         ProductEntity product3 = new ProductEntity("Shirt",200,"Male","S");
         ProductEntity product4 = new ProductEntity("Shirt",400,"Female","L");
-        ProductEntity product5 = new ProductEntity("t-shirt",800,"Unisex","M");
-        ProductEntity product6 = new ProductEntity("t-shirt",800,"Female","L");
+        ProductEntity product5 = new ProductEntity("T-shirt",800,"Unisex","M");
+        ProductEntity product6 = new ProductEntity("T-shirt",800,"Female","L");
+
+        ProductEntity product7 = new ProductEntity("Tie",1200,"Male","M");
+        ProductEntity product8 = new ProductEntity("Lower",1200,"Unisex","L");
+        ProductEntity product9 = new ProductEntity("Tie",200,"Male","S");
+        ProductEntity product10 = new ProductEntity("Trouser",400,"Female","L");
+        ProductEntity product11 = new ProductEntity("Trouser",800,"Unisex","M");
+        ProductEntity product12 = new ProductEntity("T-shirt",800,"Female","L");
 
         // create discount
         DiscountEntity discount1 = new DiscountEntity("Diwali offer", 5);
@@ -111,19 +118,26 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         product5.setProductDiscounts(new HashSet<>(Arrays.asList(discount9)));
 
         // add products in shops
-        shop1.setShopProducts(new HashSet<>(Arrays.asList(product1,product2)));
+        shop1.setShopProducts(new HashSet<>(Arrays.asList(product1,product2,product7,product8)));
         product1.setBrandName(shop1.getShopName());
         product2.setBrandName(shop1.getShopName());
+        product7.setBrandName(shop1.getShopName());
+        product8.setBrandName(shop1.getShopName());
 
-        shop2.setShopProducts(new HashSet<>(Arrays.asList(product3,product4)));
+        shop2.setShopProducts(new HashSet<>(Arrays.asList(product3,product4,product9,product10)));
         product3.setBrandName(shop2.getShopName());
         product4.setBrandName(shop2.getShopName());
+        product9.setBrandName(shop2.getShopName());
+        product10.setBrandName(shop2.getShopName());
 
-        shop3.setShopProducts(new HashSet<>(Arrays.asList(product5)));
+        shop3.setShopProducts(new HashSet<>(Arrays.asList(product5,product11)));
         product5.setBrandName(shop3.getShopName());
+        product11.setBrandName(shop3.getShopName());
 
-        shop4.setShopProducts(new HashSet<>(Arrays.asList(product6)));
+        shop4.setShopProducts(new HashSet<>(Arrays.asList(product6,product12)));
         product6.setBrandName(shop4.getShopName());
+        product12.setBrandName(shop4.getShopName());
+
 
         // add shop in admin list
         admin1.setAdminShops(new HashSet<>(Arrays.asList(shop1,shop2)));
