@@ -1,15 +1,12 @@
 package com.hu.Virtualize.services;
 
 import com.hu.Virtualize.entities.UserEntity;
-import com.hu.Virtualize.entities.UserRole;
-import com.hu.Virtualize.entities.Users;
 import com.hu.Virtualize.repositories.RolesRepository;
 import com.hu.Virtualize.repositories.UserRepository;
 import com.hu.Virtualize.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
 @Service
 public class UsersServiceImpl implements UsersService {
 
@@ -31,15 +28,13 @@ public class UsersServiceImpl implements UsersService {
             System.out.println("Email is already registered!");
             throw new Exception("Email exists!");
         }
-        if(userName!=null){
+        if(userName!=null) {
             System.out.println("UserName is already taken. Try new one!");
             throw new Exception("UserName exists!");
         }
-        else{
+        else {
             local = this.userRepository.save(userEntity);
         }
         return local;
     }
-
-
 }

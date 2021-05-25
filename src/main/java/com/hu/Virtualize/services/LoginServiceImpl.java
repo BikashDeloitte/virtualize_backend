@@ -22,6 +22,12 @@ public class LoginServiceImpl implements LoginService {
         this.adminRepository = adminRepository;
     }
 
+    /**
+     * This function will check the details is available or not in database.
+     * If available then it will return the details, other return null.
+     * @param loginCommand login details
+     * @return status
+     */
     @Override
     public Object login(LoginCommand loginCommand) {
         // for user

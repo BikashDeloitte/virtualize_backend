@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("*")
 public class LoginController {
     private final LoginService loginService;
 
@@ -16,9 +15,9 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginCommand loginCommand) {
-        System.out.println(loginCommand.toString());
+
         Object obj = loginService.login(loginCommand);
         if(obj == null ) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
