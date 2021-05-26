@@ -1,5 +1,7 @@
 package com.hu.Virtualize.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -9,6 +11,9 @@ import java.util.Properties;
 
 @Service
 public class ForgotPasswordImpl implements ForgotPassword{
+
+    private static Logger log = LoggerFactory.getLogger(ForgotPassword.class);
+
     @Override
     public boolean sendEmail(String subject, String message, String to){
 
@@ -66,7 +71,8 @@ public class ForgotPasswordImpl implements ForgotPassword{
             //Step 3 : send the message using Transport class
             Transport.send(m);
 
-            System.out.println("Sent success...................");
+//            System.out.println("Sent success...................");
+            log.info("Sent success...............");
             flag = true;
 
 
