@@ -9,8 +9,10 @@ import com.hu.Virtualize.entities.UserInterestEntity;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -22,6 +24,9 @@ import java.util.Optional;
 @Component
 public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private UserRepository userRepository;
     private AdminRepository adminRepository;
 
@@ -32,7 +37,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        log.info("Start user bootstrap class");
+        log.info("Start user bootstrap class ");
         testDataBase();
     }
 
@@ -41,7 +46,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         UserEntity userEntity1 = new UserEntity();
         userEntity1.setUserName("Zhatab Saifi");
         userEntity1.setUserEmail("zhatabsaifi@gmail.com");
-        userEntity1.setUserPassword("123");
+        userEntity1.setUserPassword(passwordEncoder.encode("123"));
 
         // user interest
         UserInterestEntity userInterestEntity1 = new UserInterestEntity("LP");
@@ -59,7 +64,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         UserEntity userEntity2 = new UserEntity();
         userEntity2.setUserName("Bikaw Kuswaha");
         userEntity2.setUserEmail("bkuswaha@gmail.com");
-        userEntity2.setUserPassword("123");
+        userEntity2.setUserPassword(passwordEncoder.encode("123"));
 
         // user interest
         UserInterestEntity userInterestEntity21 = new UserInterestEntity("Allen Solly");
@@ -76,8 +81,8 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
 // ---------------------------------------------------------------------------------------------------------
         // create admin
-        AdminEntity admin1 = new AdminEntity("zs","zsaifi@deloitte.com","123");
-        AdminEntity admin2 = new AdminEntity("bk","parveen@deloitte.com","123");
+        AdminEntity admin1 = new AdminEntity("zs","zsaifi@deloitte.com",passwordEncoder.encode("123"));
+        AdminEntity admin2 = new AdminEntity("bk","parveen@deloitte.com",passwordEncoder.encode("123"));
 
         // create shops
         ShopEntity shop1 = new ShopEntity("LP");
@@ -102,7 +107,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         // create discount
         DiscountEntity discount1 = new DiscountEntity("Diwali offer", 5);
-            discount1.setEndDate(Date.valueOf("2021-06-01"));
+        discount1.setEndDate(Date.valueOf("2021-06-01"));
 
         DiscountEntity discount2 = new DiscountEntity("Holi offer", 1);
         DiscountEntity discount3 = new DiscountEntity("Eid offer", 10);

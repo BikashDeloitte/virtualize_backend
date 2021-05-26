@@ -26,7 +26,7 @@ public class ForgotPasswordEmail {
     @RequestMapping(value = "/sendemail", method = RequestMethod.POST)
     public ResponseEntity<?> sendEmail(@RequestBody EmailRequest emailRequest){
 
-        boolean result = this.forgotPassword.sendEmail(emailRequest.getSubject(),emailRequest.getMessage(),emailRequest.getTo());
+        boolean result = forgotPassword.sendEmail(emailRequest.getSubject(),emailRequest.getMessage(),emailRequest.getTo());
         if(result) {
             return ResponseEntity.ok(new EmailResponse("Email is sent successfully.."));
         }
