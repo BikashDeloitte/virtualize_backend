@@ -2,10 +2,10 @@ package com.hu.Virtualize.controllers;
 
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.services.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.yaml.snakeyaml.util.ArrayUtils;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/product")
 @RestController
 public class UserDashboardController {
@@ -42,46 +43,52 @@ public class UserDashboardController {
 
     @PostMapping("/insertImage/{productId}")
     public ResponseEntity<String> insertProductImage(@PathVariable String productId, @RequestParam("image") MultipartFile multipartFile) {
+        log.info("User try to change the product image");
         String status = productService.insertProductImage(Long.valueOf(productId), multipartFile);
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
     @GetMapping("/image/{productId}")
-    public void renderImageFromDB(@PathVariable String productId, HttpServletResponse response) throws IOException {
+    public void renderImageFromDB(@PathVariable String productId, HttpServletResponse response) {
         ProductEntity productEntity = productService.findProductById(Long.valueOf(productId));
 
-        // if image isn't available, then it will set the default image
-        if (productEntity.getProductImage() == null) {
-            // get the image in resources folder
-            BufferedImage bImage = ImageIO.read(new File("src/main/resources/static/images/cloth.jpg"));
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ImageIO.write(bImage, "jpg", bos );
+        try {
+            // if image isn't available, then it will set the default image
+            if (productEntity.getProductImage() == null) {
+                // get the image in resources folder
+                BufferedImage bImage = ImageIO.read(new File("src/main/resources/static/images/cloth.jpg"));
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ImageIO.write(bImage, "jpg", bos);
 
-            // convert into byte array
-            byte[] byteData = bos.toByteArray();
+                // convert into byte array
+                byte[] byteData = bos.toByteArray();
 
-            // convert  byte[] into Byte[]
-            Byte[] bytesImage = new Byte[byteData.length];
+                // convert  byte[] into Byte[]
+                Byte[] bytesImage = new Byte[byteData.length];
 
-            int i = 0;
-            for (byte data : byteData) {
-                bytesImage[i++] = data; //Autoboxing
+                int i = 0;
+                for (byte data : byteData) {
+                    bytesImage[i++] = data; //Autoboxing
+                }
+
+                // set the image in product entity
+                productEntity.setProductImage(bytesImage);
             }
 
-            // set the image in product entity
-            productEntity.setProductImage(bytesImage);
+            byte[] byteArray = new byte[productEntity.getProductImage().length];
+
+            int i = 0;
+            for (Byte wrappedByte : productEntity.getProductImage()) {
+                byteArray[i++] = wrappedByte; //auto unboxing
+            }
+
+            response.setContentType("image/jpeg");
+            InputStream is = new ByteArrayInputStream(byteArray);
+            IOUtils.copy(is, response.getOutputStream());
+        } catch (IOException e) {
+            log.error("Image fetch error: " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-
-        byte[] byteArray = new byte[productEntity.getProductImage().length];
-
-        int i = 0;
-        for (Byte wrappedByte : productEntity.getProductImage()){
-            byteArray[i++] = wrappedByte; //auto unboxing
-        }
-
-        response.setContentType("image/jpeg");
-        InputStream is = new ByteArrayInputStream(byteArray);
-        IOUtils.copy(is, response.getOutputStream());
     }
 }
 

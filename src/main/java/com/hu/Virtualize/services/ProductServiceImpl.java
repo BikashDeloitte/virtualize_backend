@@ -2,6 +2,7 @@ package com.hu.Virtualize.services;
 
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.repositories.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
@@ -40,7 +42,6 @@ public class ProductServiceImpl implements ProductService {
         return productEntities;
     }
 
-
     /**
      * This function will insert the image in product entity
      * @param productId product id
@@ -60,14 +61,16 @@ public class ProductServiceImpl implements ProductService {
             for (byte b : multipartFile.getBytes()){
                 byteObjects[i++] = b;
             }
+
         } catch (Exception e) {
+            log.error("Exception: " + e.getMessage());
             throw new ResponseStatusException(HttpStatus.HTTP_VERSION_NOT_SUPPORTED, e.getMessage());
         }
 
         // set the profile image
         productEntity.setProductImage(byteObjects);
         productEntity = productRepository.save(productEntity);
-
+        log.info("Insert image for product is successfully done");
         return "Image update successfully for product: " + productEntity.getProductId();
     }
 
@@ -81,6 +84,7 @@ public class ProductServiceImpl implements ProductService {
 
         // if productId isn't valid
         if(productEntity.isEmpty()) {
+            log.error("Invalid product");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This productId isn't valid. Please enter valid productId");
         }
         return productEntity.get();

@@ -5,6 +5,7 @@ import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.repositories.ShopRepository;
 import com.hu.Virtualize.repositories.ProductRepository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
@@ -41,7 +42,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
         List<String> shops = new ArrayList<>(shopNames);
         Collections.sort(shops);
-
+        log.info("Return all store names");
         return shops;
     }
 
@@ -61,6 +62,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<String> products = new ArrayList<>(productNames);
         Collections.sort(products);
 
+        log.info("Return all product items");
         return products;
     }
 }

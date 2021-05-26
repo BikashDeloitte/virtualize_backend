@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -101,6 +102,8 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         // create discount
         DiscountEntity discount1 = new DiscountEntity("Diwali offer", 5);
+            discount1.setEndDate(Date.valueOf("2021-06-01"));
+
         DiscountEntity discount2 = new DiscountEntity("Holi offer", 1);
         DiscountEntity discount3 = new DiscountEntity("Eid offer", 10);
         DiscountEntity discount4 = new DiscountEntity("Last offer", 10);
