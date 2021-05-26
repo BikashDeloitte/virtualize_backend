@@ -1,6 +1,7 @@
 package com.hu.Virtualize.controllers;
 
 import com.hu.Virtualize.entities.EmailRequest;
+import com.hu.Virtualize.entities.EmailResponse;
 import com.hu.Virtualize.services.ForgotPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,10 +28,10 @@ public class ForgotPasswordEmail {
 
         boolean result = this.forgotPassword.sendEmail(emailRequest.getSubject(),emailRequest.getMessage(),emailRequest.getTo());
         if(result) {
-            return ResponseEntity.ok("Sent!!!");
+            return ResponseEntity.ok(new EmailResponse("Email is sent successfully.."));
         }
         else{
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not sent!!!");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new EmailResponse("Email not sent..."));
         }
     }
 
