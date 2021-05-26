@@ -49,7 +49,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         userEntity1.getUserInterestEntities().add(userInterestEntity1);
         userEntity1.getUserInterestEntities().add(userInterestEntity2);
-        
+
         // add user into 
         userEntity1 = userRepository.save(userEntity1);
         log.info(userEntity1.toString());

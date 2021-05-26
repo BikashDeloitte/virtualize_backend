@@ -11,5 +11,4 @@ public class VirtualizeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VirtualizeApplication.class, args);
 	}
-
 }
