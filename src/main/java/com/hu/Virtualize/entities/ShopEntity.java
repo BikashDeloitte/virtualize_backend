@@ -26,6 +26,7 @@ public class ShopEntity {
     private Long shopId;
 
     private String shopName;
+    private String shopLocation;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "shopId", referencedColumnName = "shopId")
@@ -33,5 +34,10 @@ public class ShopEntity {
 
     public ShopEntity(String shopName) {
         this.shopName = shopName;
+    }
+
+    public ShopEntity(String shopName, String shopLocation) {
+        this.shopName = shopName;
+        this.shopLocation = shopLocation;
     }
 }
