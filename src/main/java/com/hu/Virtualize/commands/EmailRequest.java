@@ -1,4 +1,5 @@
-package com.hu.Virtualize.entities;
+package com.hu.Virtualize.commands;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +9,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-
-
-public class EmailResponse {
-    String token;
+public class EmailRequest {
+    private String to;
+    private String subject;
+    private String message;
 }

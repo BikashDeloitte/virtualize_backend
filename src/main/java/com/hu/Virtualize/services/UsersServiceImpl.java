@@ -1,6 +1,5 @@
 package com.hu.Virtualize.services;
 
-import com.hu.Virtualize.config.PasswordService;
 import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.UserEntity;
 import com.hu.Virtualize.repositories.AdminRepository;
@@ -32,18 +31,14 @@ public class UsersServiceImpl implements UsersService {
     private AdminRepository adminRepository;
 
     @Override
-    public UserEntity addUser(UserEntity userEntity) throws Exception {
+    public UserEntity addUser(UserEntity userEntity) {
         UserEntity local = new UserEntity();
         UserEntity email = userRepository.findByUserEmail(userEntity.getUserEmail());
         UserEntity userName = userRepository.findByUserName(userEntity.getUserName());
 
-        if(email!=null){
+        if(email != null){
             log.error("Email is already registered!");
-            throw new Exception("Email exists!");
-        }
-        if(userName!=null) {
-            log.error("UserName is already taken. Try new one!");
-            throw new Exception("UserName exists!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Email exists!");
         }
         else {
             // encrypt the user password
