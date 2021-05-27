@@ -2,8 +2,6 @@ package com.hu.Virtualize.services;
 
 import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.UserEntity;
-import com.hu.Virtualize.entities.UserRole;
-import com.hu.Virtualize.entities.Users;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import java.util.Set;
