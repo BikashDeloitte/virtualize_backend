@@ -3,6 +3,7 @@ package com.hu.Virtualize.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -25,14 +26,18 @@ public class AdminEntity {
     private Long adminId;
 
     private String adminName;
+
+    @NonNull
     private String adminEmail;
+
+    @NonNull
     private String adminPassword;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "adminId", referencedColumnName = "adminId")
     Set<ShopEntity> adminShops = new HashSet<>();
 
-    public AdminEntity(String adminName, String adminEmail, String adminPassword) {
+    public AdminEntity(String adminName, @NonNull String adminEmail, @NonNull String adminPassword) {
         this.adminName = adminName;
         this.adminEmail = adminEmail;
         this.adminPassword = adminPassword;

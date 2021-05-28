@@ -1,7 +1,7 @@
 package com.hu.Virtualize.services;
 
 import com.hu.Virtualize.commands.LoginCommand;
-import com.hu.Virtualize.commands.UserTypeCommand;
+import com.hu.Virtualize.enums.UserTypeCommand;
 import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.UserEntity;
 import com.hu.Virtualize.repositories.AdminRepository;

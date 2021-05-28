@@ -29,8 +29,7 @@ public class RecommendServiceImpl implements RecommendService {
      * @param date expire date
      * @return status
      */
-    public String insertRecommend(MultipartFile multipartFile, Date date) {
-        RecommendEntity recommendEntity = new RecommendEntity();
+    public String insertRecommend(MultipartFile multipartFile, Date date, String category) {
 
         // convert MultipartFile into byte array and store in product entity
         Byte[] byteObjects;
@@ -47,12 +46,16 @@ public class RecommendServiceImpl implements RecommendService {
             throw new ResponseStatusException(HttpStatus.HTTP_VERSION_NOT_SUPPORTED, e.getMessage());
         }
 
+        RecommendEntity recommendEntity = new RecommendEntity();
         // set the profile image
         recommendEntity.setRecommendImage(byteObjects);
         recommendEntity.setEndDate(date);
+        recommendEntity.setCategoryType(category);
 
         recommendEntity = recommendRepository.save(recommendEntity);
-        return "Image successfully add in recommend bar.";
+        log.info("Recommendation add successfully.");
+
+        return "Recommendation add successfully.";
     }
 
     /**
@@ -76,7 +79,7 @@ public class RecommendServiceImpl implements RecommendService {
      * It also delete the expire recommend bar.
      * @return list of recommend id.
      */
-    public List<Long> findShowRecommendId() {
+    public List<RecommendEntity> findShowRecommendId() {
         List<RecommendEntity> recommendEntities = recommendRepository.findAll();
 
         long millis = System.currentTimeMillis();
@@ -98,9 +101,6 @@ public class RecommendServiceImpl implements RecommendService {
 
         List<Long> recommendIds = new ArrayList<>();
 
-        for(RecommendEntity recommend: recommendEntities) {
-            recommendIds.add(recommend.getRecommendId());
-        }
-        return recommendIds;
+        return recommendEntities;
     }
 }

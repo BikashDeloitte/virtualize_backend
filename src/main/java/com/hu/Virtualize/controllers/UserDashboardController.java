@@ -35,9 +35,24 @@ public class UserDashboardController {
         this.productService = productService;
     }
 
+    /**
+     * This function will return all the product present in every shop.
+     * @return list of product.
+     */
     @GetMapping({"","/"})
     public ResponseEntity<?> getProduct() {
         List<ProductEntity> products = productService.getProduct();
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    /**
+     * This function will return the specific type of product according to the category.
+     * @param category category
+     * @return list of product.
+     */
+    @GetMapping("/{category}")
+    public ResponseEntity<?> getProduct(@PathVariable String category) {
+        List<ProductEntity> products = productService.getProduct(category);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
@@ -53,28 +68,6 @@ public class UserDashboardController {
         ProductEntity productEntity = productService.findProductById(Long.valueOf(productId));
 
         try {
-            // if image isn't available, then it will set the default image
-            if (productEntity.getProductImage() == null) {
-                // get the image in resources folder
-                BufferedImage bImage = ImageIO.read(new File("src/main/resources/static/images/cloth.jpg"));
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                ImageIO.write(bImage, "jpg", bos);
-
-                // convert into byte array
-                byte[] byteData = bos.toByteArray();
-
-                // convert  byte[] into Byte[]
-                Byte[] bytesImage = new Byte[byteData.length];
-
-                int i = 0;
-                for (byte data : byteData) {
-                    bytesImage[i++] = data; //Autoboxing
-                }
-
-                // set the image in product entity
-                productEntity.setProductImage(bytesImage);
-            }
-
             byte[] byteArray = new byte[productEntity.getProductImage().length];
 
             int i = 0;

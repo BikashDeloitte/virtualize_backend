@@ -1,6 +1,5 @@
 package com.hu.Virtualize.controllers;
 
-import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.entities.RecommendEntity;
 import com.hu.Virtualize.services.RecommendService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +26,7 @@ import java.util.List;
 @RequestMapping("/recommend")
 @RestController
 public class RecommendController {
+
     private final RecommendService recommendService;
 
     public RecommendController(RecommendService recommendService) {
@@ -40,8 +40,10 @@ public class RecommendController {
      * @return status
      */
     @PostMapping("/insert")
-    public ResponseEntity<?> insertRecommend(@RequestParam("image") MultipartFile multipartFile, @RequestParam("date")Date date) {
-        String status = recommendService.insertRecommend(multipartFile, date);
+    public ResponseEntity<?> insertRecommend(@RequestParam("image") MultipartFile multipartFile,
+                                             @RequestParam("date")Date date,
+                                             @RequestParam("category")String category) {
+        String status = recommendService.insertRecommend(multipartFile, date, category);
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
@@ -51,8 +53,8 @@ public class RecommendController {
      */
     @GetMapping("/showRecommend")
     public ResponseEntity<?> findShowRecommendId() {
-        List<Long> showRecommendIds = recommendService.findShowRecommendId();
-        return new ResponseEntity<>(showRecommendIds, HttpStatus.OK);
+        List<RecommendEntity> showRecommends = recommendService.findShowRecommendId();
+        return new ResponseEntity<>(showRecommends, HttpStatus.OK);
     }
 
     /**

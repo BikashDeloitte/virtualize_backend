@@ -5,7 +5,7 @@ import com.hu.Virtualize.entities.DiscountEntity;
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.entities.ShopEntity;
 import com.hu.Virtualize.entities.UserEntity;
-import com.hu.Virtualize.entities.UserInterestEntity;
+import com.hu.Virtualize.enums.ProductEnum;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +15,13 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Optional;
 
 @Slf4j
 @Component
@@ -43,132 +46,152 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     public void testDataBase() {
         // add user1 in database
-        UserEntity userEntity1 = new UserEntity();
-        userEntity1.setUserName("Zhatab Saifi");
-        userEntity1.setUserEmail("zhatabsaifi@gmail.com");
-        userEntity1.setUserPassword(passwordEncoder.encode("123"));
+        UserEntity user1 = new UserEntity("Zhatab","b@gmail.com",passwordEncoder.encode("123"),null);
+        UserEntity user2 = new UserEntity("Praveen", "p@gmail.com",passwordEncoder.encode("123"),null);
+        UserEntity user3 = new UserEntity("Bikash", "b@gmail.com",passwordEncoder.encode("123"),null);
+        UserEntity user4 = new UserEntity("Shahansk", "s@gmail.com",passwordEncoder.encode("123"),null);
 
-        // user interest
-        UserInterestEntity userInterestEntity1 = new UserInterestEntity("LP");
-        UserInterestEntity userInterestEntity2 = new UserInterestEntity("Peter England");
+        user1 = userRepository.save(user1);
+        user2 = userRepository.save(user2);
+        user3 = userRepository.save(user3);
+        user4 = userRepository.save(user4);
 
-        userEntity1.getUserInterestEntities().add(userInterestEntity1);
-        userEntity1.getUserInterestEntities().add(userInterestEntity2);
+        log.info(user1.toString());
 
-        // add user into 
-        userEntity1 = userRepository.save(userEntity1);
-        log.info(userEntity1.toString());
+//        ------------------------------------------------------------------------------------------------------------
 
-
-        // add user2 in database
-        UserEntity userEntity2 = new UserEntity();
-        userEntity2.setUserName("Bikaw Kuswaha");
-        userEntity2.setUserEmail("bkuswaha@gmail.com");
-        userEntity2.setUserPassword(passwordEncoder.encode("123"));
-
-        // user interest
-        UserInterestEntity userInterestEntity21 = new UserInterestEntity("Allen Solly");
-        UserInterestEntity userInterestEntity22 = new UserInterestEntity("Raymond");
-        UserInterestEntity userInterestEntity23 = new UserInterestEntity("FabIndia");
-
-        userEntity2.getUserInterestEntities().add(userInterestEntity21);
-        userEntity2.getUserInterestEntities().add(userInterestEntity22);
-        userEntity2.getUserInterestEntities().add(userInterestEntity23);
-
-        // add user 2 into
-        userEntity2 = userRepository.save(userEntity2);
-        log.info(userEntity2.toString());
-
-// ---------------------------------------------------------------------------------------------------------
-        // create admin
-        AdminEntity admin1 = new AdminEntity("zs","zsaifi@deloitte.com",passwordEncoder.encode("123"));
-        AdminEntity admin2 = new AdminEntity("bk","parveen@deloitte.com",passwordEncoder.encode("123"));
-
-        // create shops
-        ShopEntity shop1 = new ShopEntity("LP");
-        ShopEntity shop2 = new ShopEntity("Peter England");
-        ShopEntity shop3 = new ShopEntity("Raymond");
-        ShopEntity shop4 = new ShopEntity("FabIndia");
-
-        // create product
-        ProductEntity product1 = new ProductEntity("Jeans",1200,"Male","M");
-        ProductEntity product2 = new ProductEntity("Jeans",1200,"Unisex","L");
-        ProductEntity product3 = new ProductEntity("Shirt",200,"Male","S");
-        ProductEntity product4 = new ProductEntity("Shirt",400,"Female","L");
-        ProductEntity product5 = new ProductEntity("T-shirt",800,"Unisex","M");
-        ProductEntity product6 = new ProductEntity("T-shirt",800,"Female","L");
-
-        ProductEntity product7 = new ProductEntity("Tie",1200,"Male","M");
-        ProductEntity product8 = new ProductEntity("Lower",1200,"Unisex","L");
-        ProductEntity product9 = new ProductEntity("Tie",200,"Male","S");
-        ProductEntity product10 = new ProductEntity("Trouser",400,"Female","L");
-        ProductEntity product11 = new ProductEntity("Trouser",800,"Unisex","M");
-        ProductEntity product12 = new ProductEntity("T-shirt",800,"Female","L");
-
-        // create discount
-        DiscountEntity discount1 = new DiscountEntity("Diwali offer", 5);
-        discount1.setEndDate(Date.valueOf("2021-06-01"));
-
-        DiscountEntity discount2 = new DiscountEntity("Holi offer", 1);
-        DiscountEntity discount3 = new DiscountEntity("Eid offer", 10);
-        DiscountEntity discount4 = new DiscountEntity("Last offer", 10);
-        DiscountEntity discount5 = new DiscountEntity("First time offer", 50);
-        DiscountEntity discount6 = new DiscountEntity("New year offer", 20);
-        DiscountEntity discount7 = new DiscountEntity("Abc offer", 7);
-        DiscountEntity discount8 = new DiscountEntity("Bcd offer", 20);
-        DiscountEntity discount9 = new DiscountEntity("Def offer", 9);
-
-        // add discount on products
-        product1.setProductDiscounts(new HashSet<>(Arrays.asList(discount1,discount2)));
-        product2.setProductDiscounts(new HashSet<>(Arrays.asList(discount3,discount4)));
-        product3.setProductDiscounts(new HashSet<>(Arrays.asList(discount5,discount6)));
-        product4.setProductDiscounts(new HashSet<>(Arrays.asList(discount7,discount8)));
-        product5.setProductDiscounts(new HashSet<>(Arrays.asList(discount9)));
-
-        // add products in shops
-        shop1.setShopProducts(new HashSet<>(Arrays.asList(product1,product2,product7,product8)));
-        product1.setBrandName(shop1.getShopName());
-        product2.setBrandName(shop1.getShopName());
-        product7.setBrandName(shop1.getShopName());
-        product8.setBrandName(shop1.getShopName());
-
-        shop2.setShopProducts(new HashSet<>(Arrays.asList(product3,product4,product9,product10)));
-        product3.setBrandName(shop2.getShopName());
-        product4.setBrandName(shop2.getShopName());
-        product9.setBrandName(shop2.getShopName());
-        product10.setBrandName(shop2.getShopName());
-
-        shop3.setShopProducts(new HashSet<>(Arrays.asList(product5,product11)));
-        product5.setBrandName(shop3.getShopName());
-        product11.setBrandName(shop3.getShopName());
-
-        shop4.setShopProducts(new HashSet<>(Arrays.asList(product6,product12)));
-        product6.setBrandName(shop4.getShopName());
-        product12.setBrandName(shop4.getShopName());
+        ShopEntity clothShop1 = new ShopEntity("Peter England", getImage("src/main/resources/static/images/brand.jpg"));
+        ShopEntity clothShop2 = new ShopEntity("Raymond", getImage("src/main/resources/static/images/brand.jpg"));
+        ShopEntity clothShop3 = new ShopEntity("Allen Solly", getImage("src/main/resources/static/images/brand.jpg"));
 
 
-        // add shop in admin list
-        admin1.setAdminShops(new HashSet<>(Arrays.asList(shop1,shop2)));
-        admin2.setAdminShops(new HashSet<>(Arrays.asList(shop3,shop4)));
+        // create cloth products
+        ProductEntity cloth1 = new ProductEntity("Shirt", 1200,null, ProductEnum.CLOTHS.toString(),"Male",null);
+        cloth1.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
+        cloth1.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("Diwali",5,"2021-06-06"),new DiscountEntity("Holi",15,"2021-06-06"))));
+
+        ProductEntity cloth2 = new ProductEntity("Jeans", 1500,null, ProductEnum.CLOTHS.toString(),"Female",null);
+        cloth2.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
+        cloth2.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("Eid",50,"2021-06-06"),new DiscountEntity("Special",15,"2021-06-06"))));
+
+        ProductEntity cloth3 = new ProductEntity("Tie", 1600,null, ProductEnum.CLOTHS.toString(),"Unisex",null);
+        cloth3.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
+        cloth3.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("Diwali",25,"2021-06-06"),new DiscountEntity("Holi",15,"2021-06-06"))));
+
+        ProductEntity cloth4 = new ProductEntity("T-shirt", 2000,null, ProductEnum.CLOTHS.toString(),"Unisex",null);
+        cloth4.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
+        cloth4.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("Diwali",30,"2021-06-06"),new DiscountEntity("Holi",15,"2021-06-06"))));
+
+
+        ProductEntity cloth5 = new ProductEntity("Shirt", 500,null, ProductEnum.CLOTHS.toString(),"Female",null);
+        cloth5.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
+
+        ProductEntity cloth6 = new ProductEntity("Jeans", 900,null, ProductEnum.CLOTHS.toString(),"Female",null);
+        cloth6.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
+        cloth6.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("Diwali",70,"2021-06-06"),new DiscountEntity("Holi",15,"2021-06-06"))));
+
+        ProductEntity cloth7 = new ProductEntity("Tie", 10000,null, ProductEnum.CLOTHS.toString(),"Unisex",null);
+        cloth7.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
+
+        ProductEntity cloth8 = new ProductEntity("T-shirt", 3000,null, ProductEnum.CLOTHS.toString(),"Male",null);
+        cloth8.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
+
+
+        cloth1.setBrandName(clothShop1.getShopName());
+        cloth2.setBrandName(clothShop1.getShopName());
+        cloth3.setBrandName(clothShop1.getShopName());
+        clothShop1.setShopProducts(new HashSet<>(Arrays.asList(cloth1,cloth2,cloth3)));
+
+        cloth4.setBrandName(clothShop2.getShopName());
+        cloth5.setBrandName(clothShop2.getShopName());
+        cloth6.setBrandName(clothShop2.getShopName());
+        clothShop2.setShopProducts(new HashSet<>(Arrays.asList(cloth4,cloth5,cloth6)));
+
+        cloth7.setBrandName(clothShop3.getShopName());
+        cloth8.setBrandName(clothShop3.getShopName());
+        clothShop3.setShopProducts(new HashSet<>(Arrays.asList(cloth7,cloth8)));
+
+//       Complete cloth shops -------------------------------------------------------------------------------
+
+        // medicine shop -------------------------------------------------------------------------------------------------
+
+        ShopEntity medicineShop1 = new ShopEntity("Aurobindo Pharma", getImage("src/main/resources/static/images/brand.jpg"));
+        ShopEntity medicineShop2 = new ShopEntity("Pharmaceutical Pharma", getImage("src/main/resources/static/images/brand.jpg"));
+        ShopEntity medicineShop3 = new ShopEntity("ManKind Pharma", getImage("src/main/resources/static/images/brand.jpg"));
+
+
+        ProductEntity medicine1 = new ProductEntity("Paracetamol",100,medicineShop1.getShopName(),ProductEnum.MEDICINE.toString(),null,null);
+        medicine1.setProductImage(getImage("src/main/resources/static/images/medicine.jpg"));
+        medicine1.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("Covid",70,"2021-06-06"),new DiscountEntity("White fungus",15,"2021-06-06"))));
+
+        ProductEntity medicine2 = new ProductEntity("Penicillin",1000,medicineShop1.getShopName(),ProductEnum.MEDICINE.toString(),null,null);
+        medicine2.setProductImage(getImage("src/main/resources/static/images/medicine.jpg"));
+        medicine2.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("Covid",30,"2021-06-06"),new DiscountEntity("Black fungus",60,"2021-06-06"))));
+
+        ProductEntity medicine3 = new ProductEntity("Insulin",500,medicineShop2.getShopName(),ProductEnum.MEDICINE.toString(),null,null);
+        medicine3.setProductImage(getImage("src/main/resources/static/images/medicine.jpg"));
+        medicine3.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("Covid",20,"2021-06-06"),new DiscountEntity("Yellow fungus",70,"2021-06-06"))));
+
+        ProductEntity medicine4 = new ProductEntity("Smallpox",50,medicineShop3.getShopName(),ProductEnum.MEDICINE.toString(),null,null);
+        medicine4.setProductImage(getImage("src/main/resources/static/images/medicine.jpg"));
+
+
+        medicineShop1.setShopProducts(new HashSet<>(Arrays.asList(medicine1,medicine2)));
+        medicineShop2.setShopProducts(new HashSet<>(Arrays.asList(medicine3)));
+        medicineShop3.setShopProducts(new HashSet<>(Arrays.asList(medicine4)));
+
+//        complete medicine shops ---------------------------------------------------------------
+
+        // restaurant shop ------------------------------------------------------------------
+        ShopEntity restaurant1 = new ShopEntity("PizzaHut", getImage("src/main/resources/static/images/brand.jpg"));
+
+        ProductEntity food1 = new ProductEntity("Pizza",500,restaurant1.getShopName(),ProductEnum.RESTAURANT.toString(),null,null);
+        food1.setProductImage(getImage("src/main/resources/static/images/restaurant.jpg"));
+        food1.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("First time user",10,"2021-06-06"))));
+
+        restaurant1.setShopProducts(new HashSet<>(Arrays.asList(food1)));
+
+        // complete restaurant items -----------------------------------------------------------------
+
+//        Admin work-----------------------------------------------------------------
+        AdminEntity admin1 = new AdminEntity("zsaifi","zsaifi@deloitte.com",passwordEncoder.encode("123"));
+        AdminEntity admin2 = new AdminEntity("praveen","parveen@deloitte.com",passwordEncoder.encode("123"));
+        AdminEntity admin3 = new AdminEntity("Shah...","s@deloitte.com",passwordEncoder.encode("123"));
+
+        admin1.setAdminShops(new HashSet<>(Arrays.asList(clothShop1,medicineShop1,restaurant1)));
+        admin2.setAdminShops(new HashSet<>(Arrays.asList(clothShop2,medicineShop2)));
+        admin3.setAdminShops(new HashSet<>(Arrays.asList(clothShop3,medicineShop3)));
+
 
         admin1 = adminRepository.save(admin1);
-        log.info(admin1.toString());
-
         admin2 = adminRepository.save(admin2);
-        log.info(admin2.toString());
+        admin3 = adminRepository.save(admin3);
 
-        userEntity1 = userRepository.save(userEntity1);
-        log.info(userEntity1.toString());
-
-
-        Optional<AdminEntity> owner = adminRepository.findById(admin1.getAdminId());
-        if(owner.isEmpty()) {
-            log.info("empty owner " + admin1.getAdminId());
-        } else{
-            log.info(owner.get().toString());
-        }
-
-        log.info(userRepository.findById(userEntity1.getUserId()).get().toString());
-        log.info("Complete data uploading in database");
+        log.info("Data load successfully");
     }
+
+    Byte[] getImage(String imageUrl) {
+        try{
+            // get the image in resources folder
+            BufferedImage bImage = ImageIO.read(new File(imageUrl));
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(bImage, "jpg", bos);
+
+            // convert into byte array
+            byte[] byteData = bos.toByteArray();
+
+            // convert  byte[] into Byte[]
+            Byte[] bytesImage = new Byte[byteData.length];
+
+            int i = 0;
+            for (byte data : byteData) {
+                bytesImage[i++] = data; //Autoboxing
+            }
+            return bytesImage;
+        } catch (Exception e) {
+            log.error("Image error: " + e.getMessage());
+        }
+        return null;
+    }
+
 }

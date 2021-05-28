@@ -3,12 +3,12 @@ package com.hu.Virtualize.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.sql.Date;
 
 @Data
@@ -20,20 +20,20 @@ public class DiscountEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long discountId;
 
+    @NonNull
     private String discountName;
+
+    @NonNull
     private Integer discountPercentage;
-    private Date startDate;
+
+    @NonNull
     private Date endDate;
 
-    public DiscountEntity(String discountName, Integer discountPercentage) {
-        this.discountName = discountName;
-        this.discountPercentage = discountPercentage;
-    }
+    private String discountDescription;
 
-    public DiscountEntity(String discountName, Integer discountPercentage, Date startDate, Date endDate) {
+    public DiscountEntity(@NonNull String discountName, @NonNull Integer discountPercentage, String discountDescription) {
         this.discountName = discountName;
         this.discountPercentage = discountPercentage;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.discountDescription = discountDescription;
     }
 }

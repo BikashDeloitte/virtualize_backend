@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.util.List;
 
 public interface RecommendService {
-    String insertRecommend(MultipartFile multipartFile, Date date);
+    String insertRecommend(MultipartFile multipartFile, Date date, String category);
     RecommendEntity findById(Long recommendId);
-    List<Long> findShowRecommendId();
+    List<RecommendEntity> findShowRecommendId();
 }

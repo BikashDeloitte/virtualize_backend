@@ -29,14 +29,29 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductEntity> getProduct() {
         List<ProductEntity> productEntities = productRepository.findAll();
 
-        productEntities.sort(new Comparator<ProductEntity>() {
-            @Override
-            public int compare(ProductEntity product1, ProductEntity product2) {
-                if(product1.getProductName().equals(product2.getProductName())) {
-                    return product1.getProductPrice() - product2.getProductPrice();
-                } else {
-                    return product1.getProductName().compareTo(product2.getProductName());
-                }
+        productEntities.sort((product1, product2) -> {
+            if(product1.getProductName().equals(product2.getProductName())) {
+                return product1.getProductPrice() - product2.getProductPrice();
+            } else {
+                return product1.getProductName().compareTo(product2.getProductName());
+            }
+        });
+        return productEntities;
+    }
+
+    /**
+     * This function will return product according to the filter.
+     * @return list of product
+     */
+    @Override
+    public List<ProductEntity> getProduct(String category) {
+        List<ProductEntity> productEntities = productRepository.findAllByCategoryType(category);
+
+        productEntities.sort((product1, product2) -> {
+            if(product1.getProductName().equals(product2.getProductName())) {
+                return product1.getProductPrice() - product2.getProductPrice();
+            } else {
+                return product1.getProductName().compareTo(product2.getProductName());
             }
         });
         return productEntities;

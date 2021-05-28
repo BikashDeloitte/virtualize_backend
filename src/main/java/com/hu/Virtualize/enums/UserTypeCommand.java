@@ -1,4 +1,4 @@
-package com.hu.Virtualize.commands;
+package com.hu.Virtualize.enums;
 
 public enum UserTypeCommand {
     USER,ADMIN;
