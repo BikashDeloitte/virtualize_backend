@@ -68,6 +68,7 @@ public class ShopServiceImpl implements ShopService {
         }
 
         boolean presentShop = false;
+        ShopEntity adminUpdateShop = null;
 
         for(ShopEntity shop: admin.getAdminShops()) {
             if(shop.getShopId().equals(shopCommand.getShopId())) {
@@ -82,6 +83,8 @@ public class ShopServiceImpl implements ShopService {
                 if(shopCommand.getShopLocation() != null) {
                     shop.setShopLocation(shopCommand.getShopLocation());
                 }
+                adminUpdateShop = shop;
+                break;
             }
         }
 
@@ -90,6 +93,8 @@ public class ShopServiceImpl implements ShopService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This shop doesn't comes under given admin");
         }
 
+        // update shop value
+        admin.getAdminShops().add(adminUpdateShop);
         // update information
         admin = adminRepository.save(admin);
         return admin;
