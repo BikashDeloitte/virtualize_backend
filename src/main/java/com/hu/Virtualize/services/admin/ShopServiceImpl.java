@@ -105,7 +105,7 @@ public class ShopServiceImpl implements ShopService {
      * @param shopCommand shop or admin details.
      * @return status
      */
-    public String deleteShop(ShopCommand shopCommand) {
+    public AdminEntity deleteShop(ShopCommand shopCommand) {
         AdminEntity admin = adminRepository.findByAdminId(shopCommand.getAdminId());
 
         if(admin == null) {
@@ -120,16 +120,6 @@ public class ShopServiceImpl implements ShopService {
         for(ShopEntity shop: admin.getAdminShops()) {
             if(shop.getShopId().equals(shopCommand.getShopId())) {
                 presentShop = true;
-
-                // if shop name will change
-                if(shopCommand.getShopName() != null) {
-                    shop.setShopName(shopCommand.getShopName());
-                }
-
-                // if shop location will change
-                if(shopCommand.getShopLocation() != null) {
-                    shop.setShopLocation(shopCommand.getShopLocation());
-                }
             } else {
                 adminShops.add(shop);
             }
@@ -141,11 +131,11 @@ public class ShopServiceImpl implements ShopService {
         }
 
         admin.setAdminShops(adminShops);
-        adminRepository.save(admin);
+        admin = adminRepository.save(admin);
 
         // delete shop and all its product and with all product discount
         shopRepository.deleteById(shopCommand.getShopId());
 
-        return "Delete shop successfully";
+        return admin;
     }
 }

@@ -3,6 +3,7 @@ package com.hu.Virtualize.controllers.admin;
 import com.hu.Virtualize.commands.admin.ProductCommand;
 import com.hu.Virtualize.entities.ShopEntity;
 import com.hu.Virtualize.services.admin.ProductCreateService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RequestMapping("/admin/product")
 @RestController
 public class ProductController {
@@ -38,7 +40,8 @@ public class ProductController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteShop(@RequestBody ProductCommand productCommand) {
-        String status = productCreateService.deleteProduct(productCommand);
-        return new ResponseEntity<>(status, HttpStatus.OK);
+        log.info("delete product in shop");
+        ShopEntity shop = productCreateService.deleteProduct(productCommand);
+        return new ResponseEntity<>(shop, HttpStatus.OK);
     }
 }

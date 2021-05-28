@@ -34,7 +34,7 @@ public class ShopController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteShop(@RequestBody ShopCommand shopCommand) {
-        String status = shopService.deleteShop(shopCommand);
-        return new ResponseEntity<>(status, HttpStatus.OK);
+        AdminEntity admin = shopService.deleteShop(shopCommand);
+        return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 }

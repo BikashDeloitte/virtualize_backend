@@ -7,5 +7,5 @@ import com.hu.Virtualize.entities.ShopEntity;
 public interface ShopService {
     AdminEntity insertShop(ShopCommand shopCommand);
     AdminEntity updateShop(ShopCommand shopCommand);
-    String deleteShop(ShopCommand shopCommand);
+    AdminEntity deleteShop(ShopCommand shopCommand);
 }

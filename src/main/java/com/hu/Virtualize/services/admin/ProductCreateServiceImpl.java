@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -81,8 +83,36 @@ public class ProductCreateServiceImpl implements ProductCreateService {
     }
 
     @Override
-    public String deleteProduct(ProductCommand productCommand) {
-        return null;
+    public ShopEntity deleteProduct(ProductCommand productCommand) {
+        Optional<ShopEntity> shopEntityOptional = shopRepository.findById(productCommand.getShopId());
+
+        if(shopEntityOptional.isEmpty()) {
+            log.error("Invalid Shop");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid shop");
+        }
+        ShopEntity shop = shopEntityOptional.get();
+
+        Set<ProductEntity> shopProduct = new HashSet<>();
+        boolean presentProductInShop = false;
+
+        for(ProductEntity product : shop.getShopProducts()) {
+            if(product.getProductId().equals(productCommand.getProductId())) {
+                presentProductInShop = true;
+            } else {
+                shopProduct.add(product);
+            }
+        }
+
+        if(!presentProductInShop) {
+            log.error("Product isn't present in given shop");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product isn't present in given shop");
+        }
+
+        shop.setShopProducts(shopProduct);
+        shop = shopRepository.save(shop);
+
+        productRepository.deleteById(productCommand.getProductId());
+        return shop;
     }
 
     ProductEntity convert(ProductEntity productEntity, ProductCommand productCommand) {
