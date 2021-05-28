@@ -39,9 +39,6 @@ public class ProductEntity {
     @JoinColumn(name = "productId", referencedColumnName = "productId")
     Set<DiscountEntity> productDiscounts = new HashSet<>();
 
-    @ManyToMany(targetEntity = UserEntity.class, cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Set<UserEntity> users = new HashSet<>();
-
     public ProductEntity(String productName, Integer productPrice, String productType, String productSize) {
         this.productName = productName;
         this.productPrice = productPrice;

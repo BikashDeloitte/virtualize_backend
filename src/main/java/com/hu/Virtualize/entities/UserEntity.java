@@ -34,7 +34,4 @@ public class UserEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     Set<UserInterestEntity> userInterestEntities = new HashSet<>();
-
-    @ManyToMany(targetEntity = ProductEntity.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<ProductEntity> favouriteProducts = new HashSet<>();
 }

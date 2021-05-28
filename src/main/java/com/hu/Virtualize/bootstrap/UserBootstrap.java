@@ -157,10 +157,6 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         admin2 = adminRepository.save(admin2);
         log.info(admin2.toString());
 
-        // add product in user fav list
-        userEntity1.setFavouriteProducts(new HashSet<>(Arrays.asList(product1,product2)));
-        userEntity2.setFavouriteProducts(new HashSet<>(Arrays.asList(product3,product4, product5)));
-
         userEntity1 = userRepository.save(userEntity1);
         log.info(userEntity1.toString());
 

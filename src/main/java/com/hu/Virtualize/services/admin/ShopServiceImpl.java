@@ -136,8 +136,10 @@ public class ShopServiceImpl implements ShopService {
         }
 
         admin.setAdminShops(adminShops);
-//         shopRepository.deleteById(shopCommand.getShopId());
         adminRepository.save(admin);
+
+        // delete shop and all its product and with all product discount
+        shopRepository.deleteById(shopCommand.getShopId());
 
         return "Delete shop successfully";
     }

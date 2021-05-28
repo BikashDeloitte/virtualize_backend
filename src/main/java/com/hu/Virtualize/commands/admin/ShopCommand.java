@@ -17,15 +17,14 @@ public class ShopCommand {
     private String shopLocation;
 }
 
-/* 1
+/* 1  -- insert
 when you add shop in admin list then pass
 {
-    adminId, ShopName, shopLocation(optional)
+    adminId, ShopName, shopLocation
 }
-
  */
 
-/* 2
+/* 2 -- update
 when you want to update the shop details in admin list, then pass
 {
     adminId, shopId, shopName(optional), shopLocation(option)
@@ -33,7 +32,7 @@ when you want to update the shop details in admin list, then pass
 
 */
 
-/* 3
+/* 3 -- delete
 when you want to delete the user details, then pass this
 {
     adminId, shopId
