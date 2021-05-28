@@ -1,14 +1,14 @@
-package com.hu.Virtualize.services;
+package com.hu.Virtualize.services.user;
 
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.repositories.ProductRepository;
+import com.hu.Virtualize.services.user.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 

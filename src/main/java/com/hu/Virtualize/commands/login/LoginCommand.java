@@ -1,4 +1,4 @@
-package com.hu.Virtualize.commands;
+package com.hu.Virtualize.commands.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,5 +13,4 @@ public class LoginCommand {
 
     // type must be ("USER", "ADMIN" )
     private String type;
-
 }

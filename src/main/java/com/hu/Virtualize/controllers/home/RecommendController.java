@@ -1,7 +1,7 @@
-package com.hu.Virtualize.controllers;
+package com.hu.Virtualize.controllers.home;
 
 import com.hu.Virtualize.entities.RecommendEntity;
-import com.hu.Virtualize.services.RecommendService;
+import com.hu.Virtualize.services.home.RecommendService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;

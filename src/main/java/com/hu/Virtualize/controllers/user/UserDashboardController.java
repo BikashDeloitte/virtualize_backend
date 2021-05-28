@@ -1,7 +1,7 @@
-package com.hu.Virtualize.controllers;
+package com.hu.Virtualize.controllers.user;
 
 import com.hu.Virtualize.entities.ProductEntity;
-import com.hu.Virtualize.services.ProductService;
+import com.hu.Virtualize.services.user.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;
@@ -15,12 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;

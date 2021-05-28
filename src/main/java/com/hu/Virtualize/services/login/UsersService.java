@@ -1,4 +1,4 @@
-package com.hu.Virtualize.services;
+package com.hu.Virtualize.services.login;
 
 import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.UserEntity;

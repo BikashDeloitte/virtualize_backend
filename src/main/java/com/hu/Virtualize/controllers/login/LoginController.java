@@ -1,14 +1,14 @@
-package com.hu.Virtualize.controllers;
+package com.hu.Virtualize.controllers.login;
 
-import com.hu.Virtualize.commands.LoginCommand;
+import com.hu.Virtualize.commands.login.LoginCommand;
 import com.hu.Virtualize.entities.AdminEntity;
-import com.hu.Virtualize.commands.EmailRequest;
-import com.hu.Virtualize.commands.EmailResponse;
+import com.hu.Virtualize.commands.login.EmailRequest;
+import com.hu.Virtualize.commands.login.EmailResponse;
 import com.hu.Virtualize.entities.UserEntity;
 import com.hu.Virtualize.repositories.UserRepository;
-import com.hu.Virtualize.services.ForgotPassword;
-import com.hu.Virtualize.services.LoginService;
-import com.hu.Virtualize.services.UsersService;
+import com.hu.Virtualize.services.login.ForgotPassword;
+import com.hu.Virtualize.services.login.LoginService;
+import com.hu.Virtualize.services.login.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,12 +1,10 @@
-package com.hu.Virtualize.services;
+package com.hu.Virtualize.services.login;
 
 import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.UserEntity;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;

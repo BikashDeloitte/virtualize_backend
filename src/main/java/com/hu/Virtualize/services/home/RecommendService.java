@@ -1,4 +1,4 @@
-package com.hu.Virtualize.services;
+package com.hu.Virtualize.services.home;
 
 import com.hu.Virtualize.entities.RecommendEntity;
 import org.springframework.web.multipart.MultipartFile;

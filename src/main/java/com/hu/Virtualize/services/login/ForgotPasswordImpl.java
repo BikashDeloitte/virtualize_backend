@@ -1,5 +1,6 @@
-package com.hu.Virtualize.services;
+package com.hu.Virtualize.services.login;
 
+import com.hu.Virtualize.services.login.ForgotPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 @Service
-public class ForgotPasswordImpl implements ForgotPassword{
+public class ForgotPasswordImpl implements ForgotPassword {
 
     private static Logger log = LoggerFactory.getLogger(ForgotPassword.class);
 
