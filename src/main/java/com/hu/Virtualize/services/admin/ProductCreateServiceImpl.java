@@ -1,8 +1,10 @@
 package com.hu.Virtualize.services.admin;
 
 import com.hu.Virtualize.commands.admin.ProductCommand;
+import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.entities.ShopEntity;
+import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.ProductRepository;
 import com.hu.Virtualize.repositories.ShopRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,6 +26,9 @@ public class ProductCreateServiceImpl implements ProductCreateService {
 
     @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired
+    private AdminRepository adminRepository;
 
     /**
      * This function will insert the product in shop.
@@ -114,6 +120,26 @@ public class ProductCreateServiceImpl implements ProductCreateService {
         productRepository.deleteById(productCommand.getProductId());
         return shop;
     }
+//    public Set<ShopEntity> getAllShopsByAdminId(Long id) {
+//
+//        Optional<AdminEntity> admin = adminRepository.findById(id);
+//        if (admin == null) {
+//            log.error("Invalid Admin ");
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid admin");
+//        }
+//
+//        Set<ShopEntity> shops = null;
+//        List<AdminEntity> allAdmin = adminRepository.findAll();
+//        for (int i = 0; i < allAdmin.size(); i++) {
+//            if (allAdmin.get(i).getAdminId().equals(id)) {
+//                shops= allAdmin.get(i).getAdminShops();
+//            }
+//        }
+//        return shops;
+//    }
+
+
+
 
     ProductEntity convert(ProductEntity productEntity, ProductCommand productCommand) {
         ProductEntity product = productEntity;

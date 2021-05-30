@@ -11,10 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -28,20 +26,22 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * This function will add new shop in admin list.
+     *
      * @param shopCommand shop details.
      * @return admin details.
      */
+    @Transactional
     public AdminEntity insertShop(ShopCommand shopCommand) {
         ShopEntity shopEntity = new ShopEntity(shopCommand.getShopName());
 
         // if location is given by admin
-        if(shopCommand.getShopLocation() != null) {
+        if (shopCommand.getShopLocation() != null) {
             shopEntity.setShopLocation(shopCommand.getShopLocation());
         }
 
         AdminEntity admin = adminRepository.findByAdminId(shopCommand.getAdminId());
 
-        if(admin == null) {
+        if (admin == null) {
             log.error("Invalid Admin ");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid admin");
         }
@@ -55,14 +55,16 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * This function will update the shop details in admin list.
+     *
      * @param shopCommand shop and admin details.
      * @return admin details.
      */
+    @Transactional
     public AdminEntity updateShop(ShopCommand shopCommand) {
 
         AdminEntity admin = adminRepository.findByAdminId(shopCommand.getAdminId());
 
-        if(admin == null) {
+        if (admin == null) {
             log.error("Invalid Admin ");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid admin");
         }
@@ -70,17 +72,17 @@ public class ShopServiceImpl implements ShopService {
         boolean presentShop = false;
         ShopEntity adminUpdateShop = null;
 
-        for(ShopEntity shop: admin.getAdminShops()) {
-            if(shop.getShopId().equals(shopCommand.getShopId())) {
+        for (ShopEntity shop : admin.getAdminShops()) {
+            if (shop.getShopId().equals(shopCommand.getShopId())) {
                 presentShop = true;
 
                 // if shop name will change
-                if(shopCommand.getShopName() != null) {
+                if (shopCommand.getShopName() != null) {
                     shop.setShopName(shopCommand.getShopName());
                 }
 
                 // if shop location will change
-                if(shopCommand.getShopLocation() != null) {
+                if (shopCommand.getShopLocation() != null) {
                     shop.setShopLocation(shopCommand.getShopLocation());
                 }
                 adminUpdateShop = shop;
@@ -88,7 +90,7 @@ public class ShopServiceImpl implements ShopService {
             }
         }
 
-        if(!presentShop) {
+        if (!presentShop) {
             log.error("This shop doesn't comes under given admin");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This shop doesn't comes under given admin");
         }
@@ -102,13 +104,14 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * This function will delete the shop in admin list and all shop product.
+     *
      * @param shopCommand shop or admin details.
      * @return status
      */
     public AdminEntity deleteShop(ShopCommand shopCommand) {
         AdminEntity admin = adminRepository.findByAdminId(shopCommand.getAdminId());
 
-        if(admin == null) {
+        if (admin == null) {
             log.error("Invalid Admin ");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid admin");
         }
@@ -117,15 +120,15 @@ public class ShopServiceImpl implements ShopService {
 
         // check shop is valid or not
         boolean presentShop = false;
-        for(ShopEntity shop: admin.getAdminShops()) {
-            if(shop.getShopId().equals(shopCommand.getShopId())) {
+        for (ShopEntity shop : admin.getAdminShops()) {
+            if (shop.getShopId().equals(shopCommand.getShopId())) {
                 presentShop = true;
             } else {
                 adminShops.add(shop);
             }
         }
 
-        if(!presentShop) {
+        if (!presentShop) {
             log.error("This shop doesn't comes under given admin");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This shop doesn't comes under given admin");
         }
@@ -137,5 +140,23 @@ public class ShopServiceImpl implements ShopService {
         shopRepository.deleteById(shopCommand.getShopId());
 
         return admin;
+    }
+
+        public Set<ShopEntity> getAllShopsByAdminId(Long id) {
+
+        Optional<AdminEntity> admin = adminRepository.findById(id);
+        if (admin == null) {
+            log.error("Invalid Admin ");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid admin");
+        }
+
+        Set<ShopEntity> shops = null;
+        List<AdminEntity> allAdmin = adminRepository.findAll();
+        for (int i = 0; i < allAdmin.size(); i++) {
+            if (allAdmin.get(i).getAdminId().equals(id)) {
+                shops= allAdmin.get(i).getAdminShops();
+            }
+        }
+        return shops;
     }
 }
