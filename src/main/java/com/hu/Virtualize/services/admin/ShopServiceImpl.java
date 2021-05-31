@@ -2,6 +2,7 @@ package com.hu.Virtualize.services.admin;
 
 import com.hu.Virtualize.commands.admin.ShopCommand;
 import com.hu.Virtualize.entities.AdminEntity;
+import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.entities.ShopEntity;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.ShopRepository;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
@@ -143,6 +145,12 @@ public class ShopServiceImpl implements ShopService {
         return admin;
     }
 
+    /**
+     * This function will gives all shops of particular admin through its admin Id
+     * @param id Admin Id
+     * @return Shop Entity
+     */
+
     @Transactional
         public Set<ShopEntity> getAllShopsByAdminId(Long id) {
 
@@ -162,23 +170,55 @@ public class ShopServiceImpl implements ShopService {
         return shops;
     }
 
-    @Transactional
-    public void deleteById(Long aid,Long id){
-//        List<AdminEntity> admins = adminRepository.findAll();
-        AdminEntity admin = adminRepository.findByAdminId(aid);
 
-        Set<ShopEntity> shops = admin.getAdminShops();
-        boolean present = false;
-        for(ShopEntity shop:shops){
-            if(shop.getShopId().equals(id)){
-                shopRepository.deleteByShopId(id);
-//                shopRepository.delete(shop);
-                present = true;
+
+    /**
+     * This function will insert image into Shop
+     * @param shopId shop Id
+     * @param multipartFile shop Image
+     * @return status message
+     */
+    public String insertShopImage(Long shopId, MultipartFile multipartFile) {
+        ShopEntity shopEntity = findShopById(shopId);
+
+        // convert MultipartFile into byte array and store in product entity
+        Byte[] byteObjects;
+        try{
+            byteObjects = new Byte[multipartFile.getBytes().length];
+
+            // copy the file data into byte array
+            int i = 0;
+            for (byte b : multipartFile.getBytes()){
+                byteObjects[i++] = b;
             }
+
+        } catch (Exception e) {
+            log.error("Exception: " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.HTTP_VERSION_NOT_SUPPORTED, e.getMessage());
         }
-        if(!present){
-            log.error("Shop with given id doesn't belong to the admin with given aid");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
+
+        // set the profile image
+        shopEntity.setShopImage(byteObjects);
+        shopEntity = shopRepository.save(shopEntity);
+        log.info("Insert image for shop is successfully done");
+        return "Image update successfully for shop: " + shopEntity.getShopId();
     }
+
+    /**
+     * This function will fetch shop through its Id
+     * @param shopId Shop Id
+     * @return ShopEntity
+     */
+
+    public ShopEntity findShopById(Long shopId) {
+        Optional<ShopEntity> shopEntity = shopRepository.findById(shopId);
+
+        // if shopId isn't valid
+        if(shopEntity.isEmpty()) {
+            log.error("Invalid store/shop");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This shopId isn't valid. Please enter valid shopId");
+        }
+        return shopEntity.get();
+    }
+
 }

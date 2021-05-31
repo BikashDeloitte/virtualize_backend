@@ -2,7 +2,9 @@ package com.hu.Virtualize.services.admin;
 
 import com.hu.Virtualize.commands.admin.ShopCommand;
 import com.hu.Virtualize.entities.AdminEntity;
+import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.entities.ShopEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 
@@ -11,5 +13,6 @@ public interface ShopService {
     AdminEntity updateShop(ShopCommand shopCommand);
     AdminEntity deleteShop(ShopCommand shopCommand);
     Set<ShopEntity> getAllShopsByAdminId(Long id);
-    void deleteById(Long aid, Long id);
+    ShopEntity findShopById(Long shopId);
+    String insertShopImage(Long shopId, MultipartFile multipartFile);
 }
