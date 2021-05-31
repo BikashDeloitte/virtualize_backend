@@ -11,4 +11,5 @@ public interface ShopService {
     AdminEntity updateShop(ShopCommand shopCommand);
     AdminEntity deleteShop(ShopCommand shopCommand);
     Set<ShopEntity> getAllShopsByAdminId(Long id);
+    void deleteById(Long aid, Long id);
 }

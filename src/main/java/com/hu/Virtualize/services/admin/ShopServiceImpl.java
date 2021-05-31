@@ -108,6 +108,7 @@ public class ShopServiceImpl implements ShopService {
      * @param shopCommand shop or admin details.
      * @return status
      */
+    @Transactional
     public AdminEntity deleteShop(ShopCommand shopCommand) {
         AdminEntity admin = adminRepository.findByAdminId(shopCommand.getAdminId());
 
@@ -142,6 +143,7 @@ public class ShopServiceImpl implements ShopService {
         return admin;
     }
 
+    @Transactional
         public Set<ShopEntity> getAllShopsByAdminId(Long id) {
 
         Optional<AdminEntity> admin = adminRepository.findById(id);
@@ -158,5 +160,25 @@ public class ShopServiceImpl implements ShopService {
             }
         }
         return shops;
+    }
+
+    @Transactional
+    public void deleteById(Long aid,Long id){
+//        List<AdminEntity> admins = adminRepository.findAll();
+        AdminEntity admin = adminRepository.findByAdminId(aid);
+
+        Set<ShopEntity> shops = admin.getAdminShops();
+        boolean present = false;
+        for(ShopEntity shop:shops){
+            if(shop.getShopId().equals(id)){
+                shopRepository.deleteByShopId(id);
+//                shopRepository.delete(shop);
+                present = true;
+            }
+        }
+        if(!present){
+            log.error("Shop with given id doesn't belong to the admin with given aid");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -52,4 +52,10 @@ public class ShopController {
         Set<ShopEntity> shops = shopService.getAllShopsByAdminId(id);
         return new ResponseEntity<>(shops,HttpStatus.OK);
     }
+
+    @DeleteMapping("/{aid}/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long aid, Long id){
+        shopService.deleteById(aid,id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
