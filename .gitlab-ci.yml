@@ -34,9 +34,9 @@ maven_build:
 
     - apt update && apt install gettext -y
 
-    - envsubst < src/main/resources/application.yml > src/main/resources/application-local.yml
+  #  - envsubst < src/main/resources/application.yml > src/main/resources/application-local.yml
 
-    - cat src/main/resources/application-local.yml
+   # - cat src/main/resources/application-local.yml
 
   script:
 
