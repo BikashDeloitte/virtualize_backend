@@ -110,7 +110,7 @@ deploy_backend:
 
     - "echo ${GITLAB_USER_LOGIN/./-}"
 
-    - "ServiceName=virtualize"
+    - "ServiceName=visualize"
 
     - |
 
