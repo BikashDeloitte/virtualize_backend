@@ -53,8 +53,7 @@ public class ProductCreateServiceImpl implements ProductCreateService {
         shop.getShopProducts().add(product);
 
         shop = shopRepository.save(shop);
-        AdminEntity admin = adminRepository.findByAdminId(productCommand.getAdminId());
-        return admin;
+        return adminRepository.findByAdminId(productCommand.getAdminId());
     }
 
     /**
@@ -93,8 +92,7 @@ public class ProductCreateServiceImpl implements ProductCreateService {
         // update product value
         shop.getShopProducts().add(shopProduct);
         shop = shopRepository.save(shop);
-        AdminEntity admin = adminRepository.findByAdminId(productCommand.getAdminId());
-        return admin;
+        return adminRepository.findByAdminId(productCommand.getAdminId());
     }
 
     /**
@@ -111,6 +109,7 @@ public class ProductCreateServiceImpl implements ProductCreateService {
             log.error("Invalid Shop");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid shop");
         }
+
         ShopEntity shop = shopEntityOptional.get();
 
         Set<ProductEntity> shopProduct = new HashSet<>();
@@ -134,8 +133,7 @@ public class ProductCreateServiceImpl implements ProductCreateService {
 
         productRepository.deleteById(productCommand.getProductId());
 
-        AdminEntity admin = adminRepository.findByAdminId(productCommand.getAdminId());
-        return admin;
+        return adminRepository.findByAdminId(productCommand.getAdminId());
     }
 
     /**
