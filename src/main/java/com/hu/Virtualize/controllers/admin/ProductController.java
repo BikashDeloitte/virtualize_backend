@@ -2,18 +2,13 @@ package com.hu.Virtualize.controllers.admin;
 
 import com.hu.Virtualize.commands.admin.ProductCommand;
 import com.hu.Virtualize.entities.AdminEntity;
-import com.hu.Virtualize.entities.ShopEntity;
 import com.hu.Virtualize.services.admin.ProductCreateService;
+import com.hu.Virtualize.services.admin.ShopService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequestMapping("/admin/product")
@@ -21,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     @Autowired
     private ProductCreateService productCreateService;
+
+    @Autowired
+    private ShopService shopService;
 
     /**
      * This api will help you to add new shop under admin.

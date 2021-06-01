@@ -6,6 +6,7 @@ import com.hu.Virtualize.commands.login.EmailRequest;
 import com.hu.Virtualize.commands.login.EmailResponse;
 import com.hu.Virtualize.entities.UserEntity;
 import com.hu.Virtualize.repositories.UserRepository;
+import com.hu.Virtualize.services.login.AdminService;
 import com.hu.Virtualize.services.login.ForgotPassword;
 import com.hu.Virtualize.services.login.LoginService;
 import com.hu.Virtualize.services.login.UsersService;
@@ -27,6 +28,9 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private AdminService adminService;
 
     /**
      * This function will help you to login .
@@ -80,5 +84,10 @@ public class LoginController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new EmailResponse("Email not sent..."));
         }
+    }
+
+    @GetMapping(value = "/admin/{id}")
+    public AdminEntity getAdminById(@PathVariable Long id){
+        return adminService.getAdminById(id);
     }
 }
