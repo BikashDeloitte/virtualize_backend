@@ -9,6 +9,7 @@ import com.hu.Virtualize.services.user.ProductCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -28,31 +29,35 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     /**
-     * This function will return all shop name.
-     * @return list of shop name
+     * This function will return all the shops name according to the product type
+     * @param productType
+     * @return
      */
-    @Override
-    public List<String> getStoreName() {
-        List<ShopEntity> shopList = shopRepository.findAll();
+    @Transactional
+    public List<String> getStoreName(String productType) {
+        List<ProductEntity> productList = productRepository.findAllByCategoryType(productType);
 
-        Set<String> shopNames = new HashSet();
+        Set<String> shopNames = new HashSet<>();
 
-        for(ShopEntity shop : shopList) {
-            shopNames.add(shop.getShopName());
+        for(ProductEntity product : productList) {
+            shopNames.add(product.getBrandName());
         }
 
         List<String> shops = new ArrayList<>(shopNames);
         Collections.sort(shops);
-        log.info("Return all store names");
+
+        log.info("Return all store according to the shop type");
         return shops;
     }
 
     /**
-     * This function will return the all product names in shops.
+     * This function will return the product in product type.
+     * @param productType product type
      * @return list of product.
      */
-    public List<String> getProductNames() {
-        List<ProductEntity> productList = productRepository.findAll();
+    @Transactional
+    public List<String> getProductNames(String productType) {
+        List<ProductEntity> productList = productRepository.findAllByCategoryType(productType);
 
         Set<String> productNames = new HashSet<>();
 
