@@ -15,6 +15,7 @@ public class ShopCommand {
 
     private String shopName;
     private String shopLocation;
+    private String shopDescription;
 }
 
 /* 1  -- insert

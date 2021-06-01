@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductCommand {
+    private Long adminId;
     private Long shopId;
     private Long productId;
 
@@ -22,17 +23,17 @@ public class ProductCommand {
 
 /*
 for insert case
-most give shopId
+most give shopId, adminId
 doesn't give productId
     give all details except *productId*
  */
 
 /*
 For update
-must give productId, shopId
+must give productId, shopId, adminId
  */
 
 /*
 for delete
-must give productId, shopId
+must give productId, shopId, adminId
  */

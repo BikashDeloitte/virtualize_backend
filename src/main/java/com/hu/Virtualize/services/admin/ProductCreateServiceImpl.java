@@ -1,8 +1,10 @@
 package com.hu.Virtualize.services.admin;
 
 import com.hu.Virtualize.commands.admin.ProductCommand;
+import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.entities.ShopEntity;
+import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.ProductRepository;
 import com.hu.Virtualize.repositories.ShopRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -22,6 +25,9 @@ public class ProductCreateServiceImpl implements ProductCreateService {
     private ProductRepository productRepository;
 
     @Autowired
+    private AdminRepository adminRepository;
+
+    @Autowired
     private ShopRepository shopRepository;
 
     /**
@@ -29,8 +35,9 @@ public class ProductCreateServiceImpl implements ProductCreateService {
      * @param productCommand product details.
      * @return
      */
+    @Transactional
     @Override
-    public ShopEntity insertProduct(ProductCommand productCommand) {
+    public AdminEntity insertProduct(ProductCommand productCommand) {
         Optional<ShopEntity> shopEntityOptional = shopRepository.findById(productCommand.getShopId());
 
         if(shopEntityOptional.isEmpty()) {
@@ -46,11 +53,13 @@ public class ProductCreateServiceImpl implements ProductCreateService {
         shop.getShopProducts().add(product);
 
         shop = shopRepository.save(shop);
-        return shop;
+        AdminEntity admin = adminRepository.findByAdminId(productCommand.getAdminId());
+        return admin;
     }
 
+    @Transactional
     @Override
-    public ShopEntity updateProduct(ProductCommand productCommand) {
+    public AdminEntity updateProduct(ProductCommand productCommand) {
         Optional<ShopEntity> shopEntityOptional = shopRepository.findById(productCommand.getShopId());
 
         if(shopEntityOptional.isEmpty()) {
@@ -79,11 +88,13 @@ public class ProductCreateServiceImpl implements ProductCreateService {
         // update product value
         shop.getShopProducts().add(shopProduct);
         shop = shopRepository.save(shop);
-        return shop;
+        AdminEntity admin = adminRepository.findByAdminId(productCommand.getAdminId());
+        return admin;
     }
 
+    @Transactional
     @Override
-    public ShopEntity deleteProduct(ProductCommand productCommand) {
+    public AdminEntity deleteProduct(ProductCommand productCommand) {
         Optional<ShopEntity> shopEntityOptional = shopRepository.findById(productCommand.getShopId());
 
         if(shopEntityOptional.isEmpty()) {
@@ -112,7 +123,9 @@ public class ProductCreateServiceImpl implements ProductCreateService {
         shop = shopRepository.save(shop);
 
         productRepository.deleteById(productCommand.getProductId());
-        return shop;
+
+        AdminEntity admin = adminRepository.findByAdminId(productCommand.getAdminId());
+        return admin;
     }
 
     ProductEntity convert(ProductEntity productEntity, ProductCommand productCommand) {

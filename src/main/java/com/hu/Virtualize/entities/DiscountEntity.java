@@ -31,9 +31,9 @@ public class DiscountEntity {
 
     private String discountDescription;
 
-    public DiscountEntity(@NonNull String discountName, @NonNull Integer discountPercentage, String discountDescription) {
+    public DiscountEntity(@NonNull String discountName, @NonNull Integer discountPercentage, String date) {
         this.discountName = discountName;
         this.discountPercentage = discountPercentage;
-        this.discountDescription = discountDescription;
+        this.endDate = Date.valueOf(date);
     }
 }

@@ -11,9 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -31,6 +30,7 @@ public class ShopServiceImpl implements ShopService {
      * @param shopCommand shop details.
      * @return admin details.
      */
+    @Transactional
     public AdminEntity insertShop(ShopCommand shopCommand) {
         ShopEntity shopEntity = new ShopEntity(shopCommand.getShopName());
 
@@ -58,6 +58,7 @@ public class ShopServiceImpl implements ShopService {
      * @param shopCommand shop and admin details.
      * @return admin details.
      */
+    @Transactional
     public AdminEntity updateShop(ShopCommand shopCommand) {
 
         AdminEntity admin = adminRepository.findByAdminId(shopCommand.getAdminId());
@@ -105,6 +106,7 @@ public class ShopServiceImpl implements ShopService {
      * @param shopCommand shop or admin details.
      * @return status
      */
+    @Transactional
     public AdminEntity deleteShop(ShopCommand shopCommand) {
         AdminEntity admin = adminRepository.findByAdminId(shopCommand.getAdminId());
 

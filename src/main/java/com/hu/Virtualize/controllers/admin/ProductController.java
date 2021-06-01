@@ -1,6 +1,7 @@
 package com.hu.Virtualize.controllers.admin;
 
 import com.hu.Virtualize.commands.admin.ProductCommand;
+import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.ShopEntity;
 import com.hu.Virtualize.services.admin.ProductCreateService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,20 +29,20 @@ public class ProductController {
      */
     @PostMapping("/create")
     public ResponseEntity<?> insertShop(@RequestBody ProductCommand productCommand) {
-        ShopEntity shop = productCreateService.insertProduct(productCommand);
-        return new ResponseEntity<>(shop, HttpStatus.OK);
+        AdminEntity admin = productCreateService.insertProduct(productCommand);
+        return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
     @PutMapping("/update")
     public ResponseEntity<?> updateShop(@RequestBody ProductCommand productCommand) {
-        ShopEntity shop = productCreateService.updateProduct(productCommand);
-        return new ResponseEntity<>(shop, HttpStatus.OK);
+        AdminEntity admin = productCreateService.updateProduct(productCommand);
+        return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteShop(@RequestBody ProductCommand productCommand) {
         log.info("delete product in shop");
-        ShopEntity shop = productCreateService.deleteProduct(productCommand);
-        return new ResponseEntity<>(shop, HttpStatus.OK);
+        AdminEntity admin = productCreateService.deleteProduct(productCommand);
+        return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 }
