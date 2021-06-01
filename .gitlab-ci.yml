@@ -57,7 +57,7 @@ deploy_backend:
   tags:
     - Virtualize_backend
   before_script:
-    - "echo ${GITLAB_USER_LOGIN/./-}"
+  #  - "echo ${GITLAB_USER_LOGIN/./-}"
     - "ServiceName=visualise"
     - |
       cat <<EOF >> app.yaml
