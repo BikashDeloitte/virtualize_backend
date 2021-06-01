@@ -23,6 +23,7 @@ import java.util.Set;
 @Slf4j
 @RequestMapping("/admin/shop")
 @RestController
+@CrossOrigin("*")
 public class ShopController {
 
     @Autowired

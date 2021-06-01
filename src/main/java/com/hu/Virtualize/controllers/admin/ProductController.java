@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequestMapping("/admin/product")
 @RestController
+@CrossOrigin("*")
 public class ProductController {
     @Autowired
     private ProductCreateService productCreateService;

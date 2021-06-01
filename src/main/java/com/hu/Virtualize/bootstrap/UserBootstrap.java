@@ -82,7 +82,6 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         cloth4.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
         cloth4.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("Diwali",30,"2021-06-06"),new DiscountEntity("Holi",15,"2021-06-06"))));
 
-
         ProductEntity cloth5 = new ProductEntity("Shirt", 500,null, ProductEnum.CLOTHS.toString(),"Female",null);
         cloth5.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
 
