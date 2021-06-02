@@ -2,7 +2,6 @@ package com.hu.Virtualize.services.home;
 
 import com.hu.Virtualize.entities.RecommendEntity;
 import com.hu.Virtualize.repositories.RecommendRepository;
-import com.hu.Virtualize.services.home.RecommendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

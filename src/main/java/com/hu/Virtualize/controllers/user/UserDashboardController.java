@@ -51,6 +51,12 @@ public class UserDashboardController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    /**
+     * This function will insert the product image.
+     * @param productId product id
+     * @param multipartFile product image
+     * @return status message
+     */
     @PostMapping("/insertImage/{productId}")
     public ResponseEntity<String> insertProductImage(@PathVariable String productId, @RequestParam("image") MultipartFile multipartFile) {
         log.info("User try to change the product image");
@@ -58,6 +64,11 @@ public class UserDashboardController {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
+    /**
+     * This function will render the product image.
+     * @param productId product id
+     * @param response http servlet stream
+     */
     @GetMapping("/image/{productId}")
     public void renderImageFromDB(@PathVariable String productId, HttpServletResponse response) {
         ProductEntity productEntity = productService.findProductById(Long.valueOf(productId));
@@ -79,5 +90,3 @@ public class UserDashboardController {
         }
     }
 }
-
-///ResponseStatusException

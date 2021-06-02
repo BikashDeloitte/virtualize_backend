@@ -29,6 +29,7 @@ public class DiscountController {
      */
     @PostMapping("/insert")
     public ResponseEntity<?> insertDiscount(@RequestBody DiscountCommand discountCommand) {
+        log.info("Admin insert the discount on product");
         AdminEntity admin = discountService.insertDiscount(discountCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
@@ -40,6 +41,7 @@ public class DiscountController {
      */
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteDiscount(@RequestBody DiscountCommand discountCommand) {
+        log.info("admin try to delete the discount on product");
         AdminEntity admin = discountService.deleteDiscount(discountCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }

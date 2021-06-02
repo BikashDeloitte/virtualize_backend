@@ -40,19 +40,20 @@ public class RecommendController {
      * @return status
      */
     @PostMapping("/insert")
-    public ResponseEntity<?> insertRecommend(@RequestParam("image") MultipartFile multipartFile,
-                                             @RequestParam("date")Date date,
+    public ResponseEntity<?> insertRecommend(@RequestParam("image") MultipartFile multipartFile, @RequestParam("date")Date date,
                                              @RequestParam("category")String category) {
+        log.info("Insert offer to show on home recommend bar");
         String status = recommendService.insertRecommend(multipartFile, date, category);
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
     /**
      * This function will return all the show recommend IDs.
-     * @return
+     * @return list of recommends
      */
     @GetMapping("/showRecommend")
     public ResponseEntity<?> findShowRecommendId() {
+        log.info("Find all recommend bar");
         List<RecommendEntity> showRecommends = recommendService.findShowRecommendId();
         return new ResponseEntity<>(showRecommends, HttpStatus.OK);
     }
@@ -64,6 +65,7 @@ public class RecommendController {
      */
     @GetMapping("/bar/{recommendId}")
     public void renderImageFromDB(@PathVariable String recommendId, HttpServletResponse response) {
+        log.info("show all recommend info on home page");
         RecommendEntity recommendEntity = recommendService.findById(Long.valueOf(recommendId));
 
         try {

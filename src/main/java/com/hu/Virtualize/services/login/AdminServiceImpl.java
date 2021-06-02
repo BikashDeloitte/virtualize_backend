@@ -17,12 +17,11 @@ public class AdminServiceImpl implements AdminService{
 
     public AdminEntity getAdminById(Long id){
         Optional<AdminEntity> admin = adminRepository.findById(id);
-        if (admin == null) {
-            log.error("Invalid Admin ");
+
+        if (admin.isEmpty()) {
+            log.error("Invalid Admin");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid admin");
         }
         return admin.get();
     }
-
-
 }

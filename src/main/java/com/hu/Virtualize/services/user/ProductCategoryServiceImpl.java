@@ -1,11 +1,9 @@
 package com.hu.Virtualize.services.user;
 
-import com.hu.Virtualize.entities.ShopEntity;
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.repositories.ShopRepository;
 import com.hu.Virtualize.repositories.ProductRepository;
 
-import com.hu.Virtualize.services.user.ProductCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +28,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     /**
      * This function will return all the shops name according to the product type
-     * @param productType
-     * @return
+     * @param productType product type
+     * @return list of product
      */
     @Transactional
     public List<String> getStoreName(String productType) {

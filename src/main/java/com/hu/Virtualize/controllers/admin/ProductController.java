@@ -28,16 +28,28 @@ public class ProductController {
      */
     @PostMapping("/create")
     public ResponseEntity<?> insertShop(@RequestBody ProductCommand productCommand) {
+        log.info("admin insert the new product in admin shop");
         AdminEntity admin = productCreateService.insertProduct(productCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
+    /**
+     * This function will update the product details.
+     * @param productCommand product details
+     * @return updated details.
+     */
     @PutMapping("/update")
     public ResponseEntity<?> updateShop(@RequestBody ProductCommand productCommand) {
+        log.info("admin try to update the product details in his shop");
         AdminEntity admin = productCreateService.updateProduct(productCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
+    /**
+     * This function will delete the product in admin shop.
+     * @param productCommand product detail
+     * @return updated details
+     */
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteShop(@RequestBody ProductCommand productCommand) {
         log.info("delete product in shop");

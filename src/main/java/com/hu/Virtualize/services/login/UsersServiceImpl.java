@@ -34,7 +34,7 @@ public class UsersServiceImpl implements UsersService {
 
         if(email != null){
             log.error("Email is already registered!");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Email exists!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Email already exists!");
         }
         else {
             // encrypt the user password

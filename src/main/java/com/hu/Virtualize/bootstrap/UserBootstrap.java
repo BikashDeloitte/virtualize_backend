@@ -3,10 +3,12 @@ package com.hu.Virtualize.bootstrap;
 import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.DiscountEntity;
 import com.hu.Virtualize.entities.ProductEntity;
+import com.hu.Virtualize.entities.RecommendEntity;
 import com.hu.Virtualize.entities.ShopEntity;
 import com.hu.Virtualize.entities.UserEntity;
 import com.hu.Virtualize.enums.ProductEnum;
 import com.hu.Virtualize.repositories.AdminRepository;
+import com.hu.Virtualize.repositories.RecommendRepository;
 import com.hu.Virtualize.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -29,6 +30,9 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RecommendRepository recommendRepository;
 
     private UserRepository userRepository;
     private AdminRepository adminRepository;
@@ -61,9 +65,13 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 //        ------------------------------------------------------------------------------------------------------------
 
         ShopEntity clothShop1 = new ShopEntity("Peter England", getImage("src/main/resources/static/images/brand.jpg"));
-        ShopEntity clothShop2 = new ShopEntity("Raymond", getImage("src/main/resources/static/images/brand.jpg"));
-        ShopEntity clothShop3 = new ShopEntity("Allen Solly", getImage("src/main/resources/static/images/brand.jpg"));
+        clothShop1.setShopImage(getImage("src/main/resources/static/images/PeterEngland.png"));
 
+        ShopEntity clothShop2 = new ShopEntity("Raymond", getImage("src/main/resources/static/images/brand.jpg"));
+        clothShop1.setShopImage(getImage("src/main/resources/static/images/RaymondShop.png"));
+
+        ShopEntity clothShop3 = new ShopEntity("Allen Solly", getImage("src/main/resources/static/images/brand.jpg"));
+        clothShop1.setShopImage(getImage("src/main/resources/static/images/LMShop.png"));
 
         // create cloth products
         ProductEntity cloth1 = new ProductEntity("Shirt", 1200,null, ProductEnum.CLOTHS.toString(),"Male",null);
@@ -95,7 +103,6 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         ProductEntity cloth8 = new ProductEntity("T-shirt", 3000,null, ProductEnum.CLOTHS.toString(),"Male",null);
         cloth8.setProductImage(getImage("src/main/resources/static/images/cloth.jpg"));
 
-
         cloth1.setBrandName(clothShop1.getShopName());
         cloth2.setBrandName(clothShop1.getShopName());
         cloth3.setBrandName(clothShop1.getShopName());
@@ -115,9 +122,13 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         // medicine shop -------------------------------------------------------------------------------------------------
 
         ShopEntity medicineShop1 = new ShopEntity("Aurobindo Pharma", getImage("src/main/resources/static/images/brand.jpg"));
-        ShopEntity medicineShop2 = new ShopEntity("Pharmaceutical Pharma", getImage("src/main/resources/static/images/brand.jpg"));
-        ShopEntity medicineShop3 = new ShopEntity("ManKind Pharma", getImage("src/main/resources/static/images/brand.jpg"));
+        medicineShop1.setShopImage(getImage("src/main/resources/static/images/medicine.jpg"));
 
+        ShopEntity medicineShop2 = new ShopEntity("Pharmaceutical Pharma", getImage("src/main/resources/static/images/brand.jpg"));
+        medicineShop2.setShopImage(getImage("src/main/resources/static/images/MedicalShop.png"));
+
+        ShopEntity medicineShop3 = new ShopEntity("ManKind Pharma", getImage("src/main/resources/static/images/brand.jpg"));
+        medicineShop3.setShopImage(getImage("src/main/resources/static/images/MedicalShop.png"));
 
         ProductEntity medicine1 = new ProductEntity("Paracetamol",100,medicineShop1.getShopName(),ProductEnum.MEDICINE.toString(),null,null);
         medicine1.setProductImage(getImage("src/main/resources/static/images/medicine.jpg"));
@@ -143,6 +154,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         // restaurant shop ------------------------------------------------------------------
         ShopEntity restaurant1 = new ShopEntity("PizzaHut", getImage("src/main/resources/static/images/brand.jpg"));
+        restaurant1.setShopImage(getImage("src/main/resources/static/images/restaurant.jpg"));
 
         ProductEntity food1 = new ProductEntity("Pizza",500,restaurant1.getShopName(),ProductEnum.RESTAURANT.toString(),null,null);
         food1.setProductImage(getImage("src/main/resources/static/images/restaurant.jpg"));
@@ -166,9 +178,65 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         admin2 = adminRepository.save(admin2);
         admin3 = adminRepository.save(admin3);
 
+        addRecommendation();
         log.info("Data load successfully");
     }
 
+    void addRecommendation() {
+        RecommendEntity recommend1 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25");
+        recommend1.setRecommendImage(getImage("src/main/resources/static/images/clothes_offer1.jpg"));
+        recommendRepository.save(recommend1);
+
+        RecommendEntity recommend2 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25");
+        recommend2.setRecommendImage(getImage("src/main/resources/static/images/medicine_offer1.jpg"));
+        recommendRepository.save(recommend2);
+
+        RecommendEntity recommend3 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        recommend3.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT_offer2.jpg"));
+        recommendRepository.save(recommend3);
+
+        RecommendEntity recommend4 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25");
+        recommend4.setRecommendImage(getImage("src/main/resources/static/images/cloth1.jpg"));
+        recommendRepository.save(recommend4);
+
+        RecommendEntity recommend5 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25");
+        recommend5.setRecommendImage(getImage("src/main/resources/static/images/cloth2.jpg"));
+        recommendRepository.save(recommend5);
+
+        RecommendEntity recommend6 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        recommend6.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT1.jpg"));
+        recommendRepository.save(recommend6);
+
+        RecommendEntity recommend7 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        recommend7.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT2.jpg"));
+        recommendRepository.save(recommend7);
+
+        RecommendEntity recommend8 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25");
+        recommend8.setRecommendImage(getImage("src/main/resources/static/images/medicine1.jpg"));
+        recommendRepository.save(recommend8);
+
+        RecommendEntity recommend9 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25");
+        recommend9.setRecommendImage(getImage("src/main/resources/static/images/medicine2.jpg"));
+        recommendRepository.save(recommend9);
+
+        RecommendEntity recommend10 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25");
+        recommend10.setRecommendImage(getImage("src/main/resources/static/images/cloth3.jpg"));
+        recommendRepository.save(recommend10);
+
+        RecommendEntity recommend11 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        recommend11.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT4.jpg"));
+        recommendRepository.save(recommend11);
+
+        RecommendEntity recommend12 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        recommend12.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT3.jpg"));
+        recommendRepository.save(recommend12);
+    }
+
+    /**
+     * This function will convert the image into byte format.
+     * @param imageUrl image url
+     * @return byte array
+     */
     Byte[] getImage(String imageUrl) {
         try{
             // get the image in resources folder

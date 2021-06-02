@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import java.util.Set;
 
 public interface UsersService {
-    UserEntity addUser(UserEntity userEntity) throws Exception;
+    UserEntity addUser(UserEntity userEntity);
     AdminEntity addAdmin(AdminEntity adminEntity);
 }

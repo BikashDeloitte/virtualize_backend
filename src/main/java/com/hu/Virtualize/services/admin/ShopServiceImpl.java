@@ -29,7 +29,6 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * This function will add new shop in admin list.
-     *
      * @param shopCommand shop details.
      * @return admin details.
      */
@@ -58,7 +57,6 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * This function will update the shop details in admin list.
-     *
      * @param shopCommand shop and admin details.
      * @return admin details.
      */
@@ -107,7 +105,6 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * This function will delete the shop in admin list and all shop product.
-     *
      * @param shopCommand shop or admin details.
      * @return status
      */
@@ -207,7 +204,6 @@ public class ShopServiceImpl implements ShopService {
      * @param shopId Shop Id
      * @return ShopEntity
      */
-
     public ShopEntity findShopById(Long shopId) {
         Optional<ShopEntity> shopEntity = shopRepository.findById(shopId);
 

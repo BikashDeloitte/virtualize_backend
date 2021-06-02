@@ -37,4 +37,9 @@ public class RecommendEntity {
         this.categoryType = categoryType;
         this.endDate = endDate;
     }
+
+    public RecommendEntity(@NonNull String categoryType, String endDate) {
+        this.categoryType = categoryType;
+        this.endDate = Date.valueOf(endDate);
+    }
 }

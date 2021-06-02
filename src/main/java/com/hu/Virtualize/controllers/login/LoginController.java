@@ -5,23 +5,21 @@ import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.commands.login.EmailRequest;
 import com.hu.Virtualize.commands.login.EmailResponse;
 import com.hu.Virtualize.entities.UserEntity;
-import com.hu.Virtualize.repositories.UserRepository;
 import com.hu.Virtualize.services.login.AdminService;
 import com.hu.Virtualize.services.login.ForgotPassword;
 import com.hu.Virtualize.services.login.LoginService;
 import com.hu.Virtualize.services.login.UsersService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 public class LoginController {
     @Autowired
     private ForgotPassword forgotPassword;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UsersService usersService;
@@ -39,9 +37,10 @@ public class LoginController {
      */
     @PostMapping("/user/login")
     public ResponseEntity<?> login(@RequestBody LoginCommand loginCommand) {
-
+        log.info("Try to login user or admin");
         Object obj = loginService.login(loginCommand);
         if(obj == null ) {
+            log.error("Wrong username or password. Please enter correct details");
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -52,10 +51,10 @@ public class LoginController {
      * This function will register the user.
      * @param userEntity user details.
      * @return user details object
-     * @throws Exception when any exception come
      */
     @PostMapping("/users/add")
-    public UserEntity addUser(@RequestBody UserEntity userEntity) throws Exception {
+    public UserEntity addUser(@RequestBody UserEntity userEntity) {
+        log.info("New user try to register yourself");
         return usersService.addUser(userEntity);
     }
 
@@ -66,6 +65,7 @@ public class LoginController {
      */
     @PostMapping("/admin/add")
     public ResponseEntity<?> addAdmin(@RequestBody AdminEntity adminEntity) {
+        log.info("New Admin try to register yourself");
         AdminEntity admin = usersService.addAdmin(adminEntity);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
@@ -77,7 +77,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/sendemail", method = RequestMethod.POST)
     public ResponseEntity<?> sendEmail(@RequestBody EmailRequest emailRequest){
-
+        log.info("Send mail when user/admin forgot the password");
         boolean result = forgotPassword.sendEmail(emailRequest.getSubject(),emailRequest.getMessage(),emailRequest.getTo());
         if(result) {
             return ResponseEntity.ok(new EmailResponse("Email is sent successfully.."));
@@ -86,6 +86,11 @@ public class LoginController {
         }
     }
 
+    /**
+     * This function will return the admin details according to adminId.
+     * @param id admin id
+     * @return admin details.
+     */
     @GetMapping(value = "/admin/{id}")
     public AdminEntity getAdminById(@PathVariable Long id){
         return adminService.getAdminById(id);

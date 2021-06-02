@@ -1,8 +1,8 @@
 package com.hu.Virtualize.services.login;
 
-import com.hu.Virtualize.services.login.ForgotPassword;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -10,27 +10,33 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+@Slf4j
 @Service
 public class ForgotPasswordImpl implements ForgotPassword {
 
-    private static Logger log = LoggerFactory.getLogger(ForgotPassword.class);
+    @Autowired
+    private Environment env;
 
+    /**
+     * This function will send the mail to the user.
+     * @param subject message subject
+     * @param message  message content
+     * @param to user email
+     * @return status (true or false0
+     */
     @Override
     public boolean sendEmail(String subject, String message, String to){
-
         boolean flag = false;
 
-        String from ="teamvirtualize@gmail.com";
-        //Variable for gmail
-        String host="smtp.gmail.com";
+        String applicationEmail = env.getProperty("application.email");
+        String applicationPassword = env.getProperty("application.password");
 
         //get the system properties
         Properties properties = System.getProperties();
-        System.out.println("PROPERTIES "+properties);
 
-        //setting important information to properties object
+        //Variable for gmail
+        String host="smtp.gmail.com";
 
-        //host set
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port","465");
         properties.put("mail.smtp.ssl.enable","true");
@@ -40,7 +46,7 @@ public class ForgotPasswordImpl implements ForgotPassword {
         Session session=Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("teamvirtualize@gmail.com", "virtualize123");
+                return new PasswordAuthentication(applicationEmail, applicationPassword);
             }
 
 
@@ -48,40 +54,22 @@ public class ForgotPasswordImpl implements ForgotPassword {
         });
 
         session.setDebug(true);
-
-        //Step 2 : compose the message [text,multi media]
         MimeMessage m = new MimeMessage(session);
 
         try {
-
-            //from email
-            m.setFrom(from);
-
-            //adding recipient to message
+            m.setFrom(applicationEmail);
             m.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             //adding subject to message
             m.setSubject(subject);
-
-
-            //adding text to message
             m.setText(message);
-
-            //send
-
-            //Step 3 : send the message using Transport class
             Transport.send(m);
-
-//            System.out.println("Sent success...................");
-            log.info("Sent success...............");
             flag = true;
 
-
+            log.info("Forgot password successfully");
         }catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
-
         return flag;
     }
-
 }

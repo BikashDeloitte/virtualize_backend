@@ -39,29 +39,46 @@ public class ShopController {
      */
     @PostMapping("/create")
     public ResponseEntity<?> insertShop(@RequestBody ShopCommand shopCommand) {
+        log.info("Admin add new shop in his list");
         AdminEntity admin = shopService.insertShop(shopCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
+    /**
+     * This function will update the shop details.
+     * @param shopCommand shop details.
+     * @return updated details
+     */
     @PutMapping("/update")
     public ResponseEntity<?> updateShop(@RequestBody ShopCommand shopCommand) {
+        log.info("Admin update the shop details");
         AdminEntity admin = shopService.updateShop(shopCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
+    /**
+     * This function will delete the shop in admin shops.
+     * @param shopCommand shop details
+     * @return updated detail
+     */
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteShop(@RequestBody ShopCommand shopCommand) {
+        log.info("Admin delete the shop in his list");
         AdminEntity admin = shopService.deleteShop(shopCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
-
+    /**
+     * This function will return the shop by shopId.
+     * @param id shop id
+     * @return shop object
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getShopsById(@PathVariable Long id){
+        log.info("Admin find the shop by shop id");
         Set<ShopEntity> shops = shopService.getAllShopsByAdminId(id);
         return new ResponseEntity<>(shops,HttpStatus.OK);
     }
-
 
     /**
      * This api will insert image for specific shop
@@ -69,7 +86,6 @@ public class ShopController {
      * @param multipartFile image for shop
      * @return 200 OK status
      */
-
     @PostMapping("/insertImage/{shopId}")
     public ResponseEntity<String> insertShopImage(@PathVariable String shopId, @RequestParam("image") MultipartFile multipartFile) {
         log.info("Admin try to change the shop image");
@@ -77,6 +93,11 @@ public class ShopController {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
+    /**
+     * This function will render the shop image
+     * @param shopId shop id
+     * @param response http servlet response stream
+     */
     @GetMapping("/image/{shopId}")
     public void renderImageFromDB(@PathVariable String shopId, HttpServletResponse response) {
         ShopEntity shopEntity = shopService.findShopById(Long.valueOf(shopId));
@@ -97,5 +118,4 @@ public class ShopController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
-
 }
