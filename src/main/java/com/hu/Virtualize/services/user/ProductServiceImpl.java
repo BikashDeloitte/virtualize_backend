@@ -78,7 +78,6 @@ public class ProductServiceImpl implements ProductService {
             for (byte b : multipartFile.getBytes()){
                 byteObjects[i++] = b;
             }
-
         } catch (Exception e) {
             log.error("Exception: " + e.getMessage());
             throw new ResponseStatusException(HttpStatus.HTTP_VERSION_NOT_SUPPORTED, e.getMessage());
