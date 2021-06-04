@@ -4,6 +4,7 @@ import com.hu.Virtualize.commands.admin.ProductCommand;
 import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.entities.ShopEntity;
+import com.hu.Virtualize.enums.ProductEnum;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.ProductRepository;
 import com.hu.Virtualize.repositories.ShopRepository;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -168,7 +171,23 @@ public class ProductCreateServiceImpl implements ProductCreateService {
         if(productCommand.getProductImage() != null) {
             product.setProductImage(productCommand.getProductImage());
         }
-
         return product;
+    }
+
+    /**
+     * It will send all type of product enum values.
+     * @return list of product type.
+     */
+    @Transactional
+    public List<String> getAllProductType() {
+        List<String> types = new ArrayList<>();
+
+        ProductEnum[] products = ProductEnum.values();
+
+        for(ProductEnum product: products) {
+            types.add(product.toString());
+        }
+
+        return types;
     }
 }

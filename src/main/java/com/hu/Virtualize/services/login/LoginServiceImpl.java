@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
     public Object login(LoginCommand loginCommand) {
         // encrypt the password
         loginCommand.setPassword(passwordEncoder.encode(loginCommand.getPassword()));
-        log.info(loginCommand.getPassword());
+
         // for user
         if(loginCommand.getType().equals(UserTypeCommand.USER.toString())) {
             UserEntity userEntity = userRepository.findByUserEmail(loginCommand.getId());
@@ -61,6 +61,53 @@ public class LoginServiceImpl implements LoginService {
                 return null;
             }
             return adminEntity.get();
+        }
+    }
+
+    /**
+     * This function will check the email is valid or not.
+     * @param loginCommand login details.
+     * @return status (true or false) if available then return true, otherwise return false.
+     */
+    @Transactional
+    public Boolean validEmail(LoginCommand loginCommand) {
+        if(loginCommand.getType().equals(UserTypeCommand.USER.toString())) {
+            UserEntity user = userRepository.findByUserEmail(loginCommand.getId());
+            return user != null;
+        } else {
+            Optional<AdminEntity> adminEntity = adminRepository.findByAdminEmail(loginCommand.getId());
+            return adminEntity.isPresent();
+        }
+    }
+
+    /**
+     * This function will update the password.
+     * @param loginCommand login details
+     * @return update object
+     */
+    @Transactional
+    public Object updatePassword(LoginCommand loginCommand) {
+        // encrypt the password
+        loginCommand.setPassword(passwordEncoder.encode(loginCommand.getPassword()));
+
+        // for user
+        if(loginCommand.getType().equals(UserTypeCommand.USER.toString())) {
+            UserEntity userEntity = userRepository.findByUserEmail(loginCommand.getId());
+
+            userEntity.setUserPassword(loginCommand.getPassword());
+            userEntity = userRepository.save(userEntity);
+
+            return userEntity;
+        } else {
+            // for admin login
+            Optional<AdminEntity> adminEntity = adminRepository.findByAdminEmail(loginCommand.getId());
+
+            AdminEntity admin = adminEntity.get();
+            admin.setAdminPassword(loginCommand.getPassword());
+
+            admin = adminRepository.save(admin);
+
+            return admin;
         }
     }
 }

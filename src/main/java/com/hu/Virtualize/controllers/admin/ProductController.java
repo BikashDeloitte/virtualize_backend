@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RequestMapping("/admin/product")
 @RestController
@@ -55,5 +57,15 @@ public class ProductController {
         log.info("delete product in shop");
         AdminEntity admin = productCreateService.deleteProduct(productCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
+    }
+
+    /**
+     * This  function will return all available type of products.
+     * @return list of products.
+     */
+    @GetMapping("/types")
+    public ResponseEntity<?> getAllProductType() {
+        List<String> types = productCreateService.getAllProductType();
+        return new ResponseEntity<>(types,HttpStatus.OK);
     }
 }
