@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginService {
             UserEntity userEntity = userRepository.findByUserEmail(loginCommand.getId());
 
             // when user enter invalid user id or password
-            if(userEntity == null || passwordEncoder.matches(loginCommand.getPassword(), userEntity.getUserPassword())) {
+            if(userEntity == null || !passwordEncoder.matches(loginCommand.getPassword(), userEntity.getUserPassword())) {
                 log.info("Not valid user details");
                 return null;
             }
@@ -56,7 +56,7 @@ public class LoginServiceImpl implements LoginService {
 
 
             // when admin enter wrong id password
-            if(adminEntity.isEmpty() || passwordEncoder.matches(loginCommand.getPassword(), adminEntity.get().getAdminPassword())) {
+            if(adminEntity.isEmpty() || !passwordEncoder.matches(loginCommand.getPassword(), adminEntity.get().getAdminPassword())) {
                 log.info("Not valid admin details");
                 return null;
             }

@@ -41,7 +41,7 @@ public class ProductController {
      * @return updated details.
      */
     @PutMapping("/update")
-    public ResponseEntity<?> updateShop(@RequestBody ProductCommand productCommand) {
+    public ResponseEntity<?> updateProduct(@RequestBody ProductCommand productCommand) {
         log.info("admin try to update the product details in his shop");
         AdminEntity admin = productCreateService.updateProduct(productCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
@@ -53,8 +53,8 @@ public class ProductController {
      * @return updated details
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteShop(@RequestBody ProductCommand productCommand) {
-        log.info("delete product in shop");
+    public ResponseEntity<?> deleteProduct(@RequestBody ProductCommand productCommand) {
+        log.info("delete product in product");
         AdminEntity admin = productCreateService.deleteProduct(productCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
