@@ -50,7 +50,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     public void testDataBase() {
         // add user1 in database
-        UserEntity user1 = new UserEntity("Zhatab","b@gmail.com",passwordEncoder.encode("123"),null);
+        UserEntity user1 = new UserEntity("Zhatab","z@gmail.com",passwordEncoder.encode("123"),null);
         UserEntity user2 = new UserEntity("Praveen", "p@gmail.com",passwordEncoder.encode("123"),null);
         UserEntity user3 = new UserEntity("Bikash", "b@gmail.com",passwordEncoder.encode("123"),null);
         UserEntity user4 = new UserEntity("Shahansk", "s@gmail.com",passwordEncoder.encode("123"),null);
@@ -183,51 +183,51 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
     }
 
     void addRecommendation() {
-        RecommendEntity recommend1 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25");
+        RecommendEntity recommend1 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend1.setRecommendImage(getImage("src/main/resources/static/images/clothes_offer1.jpg"));
         recommendRepository.save(recommend1);
 
-        RecommendEntity recommend2 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25");
+        RecommendEntity recommend2 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25"," Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend2.setRecommendImage(getImage("src/main/resources/static/images/medicine_offer1.jpg"));
         recommendRepository.save(recommend2);
 
-        RecommendEntity recommend3 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        RecommendEntity recommend3 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25"," Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend3.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT_offer2.jpg"));
         recommendRepository.save(recommend3);
 
-        RecommendEntity recommend4 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25");
+        RecommendEntity recommend4 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend4.setRecommendImage(getImage("src/main/resources/static/images/cloth1.jpg"));
         recommendRepository.save(recommend4);
 
-        RecommendEntity recommend5 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25");
+        RecommendEntity recommend5 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25"," Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend5.setRecommendImage(getImage("src/main/resources/static/images/cloth2.jpg"));
         recommendRepository.save(recommend5);
 
-        RecommendEntity recommend6 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        RecommendEntity recommend6 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend6.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT1.jpg"));
         recommendRepository.save(recommend6);
 
-        RecommendEntity recommend7 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        RecommendEntity recommend7 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend7.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT2.jpg"));
         recommendRepository.save(recommend7);
 
-        RecommendEntity recommend8 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25");
+        RecommendEntity recommend8 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend8.setRecommendImage(getImage("src/main/resources/static/images/medicine1.jpg"));
         recommendRepository.save(recommend8);
 
-        RecommendEntity recommend9 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25");
+        RecommendEntity recommend9 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend9.setRecommendImage(getImage("src/main/resources/static/images/medicine2.jpg"));
         recommendRepository.save(recommend9);
 
-        RecommendEntity recommend10 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25");
+        RecommendEntity recommend10 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend10.setRecommendImage(getImage("src/main/resources/static/images/cloth3.jpg"));
         recommendRepository.save(recommend10);
 
-        RecommendEntity recommend11 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        RecommendEntity recommend11 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend11.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT4.jpg"));
         recommendRepository.save(recommend11);
 
-        RecommendEntity recommend12 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25");
+        RecommendEntity recommend12 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
         recommend12.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT3.jpg"));
         recommendRepository.save(recommend12);
     }

@@ -30,6 +30,7 @@ public class RecommendEntity {
 
     @NonNull
     private String categoryType;
+    private String description;
 
     private Date endDate;
 
@@ -38,8 +39,9 @@ public class RecommendEntity {
         this.endDate = endDate;
     }
 
-    public RecommendEntity(@NonNull String categoryType, String endDate) {
+    public RecommendEntity(@NonNull String categoryType, String endDate, String description) {
         this.categoryType = categoryType;
         this.endDate = Date.valueOf(endDate);
+        this.description = description;
     }
 }

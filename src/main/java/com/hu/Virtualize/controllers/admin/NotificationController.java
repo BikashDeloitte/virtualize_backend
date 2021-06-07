@@ -1,23 +1,33 @@
 package com.hu.Virtualize.controllers.admin;
 
-import com.hu.Virtualize.commands.admin.Greeting;
-import com.hu.Virtualize.commands.admin.HelloMessage;
+import com.hu.Virtualize.controllers.home.RecommendController;
+import com.hu.Virtualize.entities.RecommendEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.HtmlUtils;
+import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @RestController
 public class NotificationController {
 
-    @MessageMapping("/notification")
-    @SendTo("/topic/greetings")
-    public Greeting greeting(HelloMessage message) throws Exception {
-        log.info(message.toString());
+    @Autowired
+    private RecommendController recommendController;
 
-        Thread.sleep(1000); // simulated delay
-        return new Greeting("Add new Product: " +  message.getName());
+    @MessageMapping("/notification")
+    @SendTo("/topic/received")
+    public RecommendEntity greeting(String recommendId)  {
+        try{
+            log.info("Send this recommendation to notification bar");
+//            Thread.sleep(1000); // simulated delay
+            ResponseEntity<?> responseEntity = recommendController.findRecommendById(recommendId);
+            return (RecommendEntity) responseEntity.getBody();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }

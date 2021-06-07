@@ -9,5 +9,5 @@ import java.util.List;
 public interface RecommendService {
     String insertRecommend(MultipartFile multipartFile, Date date, String category);
     RecommendEntity findById(Long recommendId);
-    List<RecommendEntity> findShowRecommendId();
+    List<RecommendEntity> findShowRecommends();
 }

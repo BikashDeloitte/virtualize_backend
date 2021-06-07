@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -64,14 +63,14 @@ public class RecommendServiceImpl implements RecommendService {
      * @return  recommend object
      */
     public RecommendEntity findById(Long recommendId) {
-        Optional<RecommendEntity> recommendEntity = recommendRepository.findById(recommendId);
+        Optional<RecommendEntity> recommendEntityOptional = recommendRepository.findById(recommendId);
 
         // if productId isn't valid
-        if(recommendEntity.isEmpty()) {
+        if(recommendEntityOptional.isEmpty()) {
             log.error("Invalid recommend bar");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid recommend");
         }
-        return recommendEntity.get();
+        return recommendEntityOptional.get();
     }
 
     /**
@@ -79,7 +78,7 @@ public class RecommendServiceImpl implements RecommendService {
      * It also delete the expire recommend bar.
      * @return list of recommend id.
      */
-    public List<RecommendEntity> findShowRecommendId() {
+    public List<RecommendEntity> findShowRecommends() {
         List<RecommendEntity> recommendEntities = recommendRepository.findAll();
 
         long millis = System.currentTimeMillis();
@@ -98,8 +97,6 @@ public class RecommendServiceImpl implements RecommendService {
 
         // sorting according to the date
         recommendEntities.sort(Comparator.comparing(RecommendEntity::getEndDate));
-
-        List<Long> recommendIds = new ArrayList<>();
 
         return recommendEntities;
     }

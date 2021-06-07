@@ -51,10 +51,21 @@ public class RecommendController {
      * This function will return all the show recommend IDs.
      * @return list of recommends
      */
+    @GetMapping("/showRecommend/{recommendId}")
+    public ResponseEntity<?> findRecommendById(@PathVariable String recommendId) {
+        log.info("Find recommendation by id");
+        RecommendEntity showRecommend = recommendService.findById(Long.parseLong(recommendId));
+        return new ResponseEntity<>(showRecommend, HttpStatus.OK);
+    }
+
+    /**
+     * This function will return all the show recommend IDs.
+     * @return list of recommends
+     */
     @GetMapping("/showRecommend")
     public ResponseEntity<?> findShowRecommendId() {
         log.info("Find all recommend bar");
-        List<RecommendEntity> showRecommends = recommendService.findShowRecommendId();
+        List<RecommendEntity> showRecommends = recommendService.findShowRecommends();
         return new ResponseEntity<>(showRecommends, HttpStatus.OK);
     }
 
