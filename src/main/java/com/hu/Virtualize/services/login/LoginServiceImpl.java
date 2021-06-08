@@ -8,6 +8,7 @@ import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import java.util.Optional;
 @Service
 public class LoginServiceImpl implements LoginService {
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
@@ -37,9 +38,6 @@ public class LoginServiceImpl implements LoginService {
     @Transactional
     @Override
     public Object login(LoginCommand loginCommand) {
-        // encrypt the password
-        loginCommand.setPassword(passwordEncoder.encode(loginCommand.getPassword()));
-
         // for user
         if(loginCommand.getType().equals(UserTypeCommand.USER.toString())) {
             UserEntity userEntity = userRepository.findByUserEmail(loginCommand.getId());
@@ -53,7 +51,6 @@ public class LoginServiceImpl implements LoginService {
         } else {
             // for admin login
             Optional<AdminEntity> adminEntity = adminRepository.findByAdminEmail(loginCommand.getId());
-
 
             // when admin enter wrong id password
             if(adminEntity.isEmpty() || !passwordEncoder.matches(loginCommand.getPassword(), adminEntity.get().getAdminPassword())) {

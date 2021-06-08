@@ -50,7 +50,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     public void testDataBase() {
         // add user1 in database
-        UserEntity user1 = new UserEntity("Zhatab","b@gmail.com",passwordEncoder.encode("123"),null);
+        UserEntity user1 = new UserEntity("Zhatab","z@gmail.com",passwordEncoder.encode("123"),null);
         UserEntity user2 = new UserEntity("Praveen", "p@gmail.com",passwordEncoder.encode("123"),null);
         UserEntity user3 = new UserEntity("Bikash", "b@gmail.com",passwordEncoder.encode("123"),null);
         UserEntity user4 = new UserEntity("Shahansk", "s@gmail.com",passwordEncoder.encode("123"),null);
