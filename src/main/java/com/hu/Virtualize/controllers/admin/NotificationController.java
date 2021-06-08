@@ -23,7 +23,6 @@ public class NotificationController {
     public RecommendEntity greeting(String recommendId)  {
         try{
             log.info("Send this recommendation to notification bar");
-//            Thread.sleep(1000); // simulated delay
             ResponseEntity<?> responseEntity = recommendController.findRecommendById(recommendId);
             return (RecommendEntity) responseEntity.getBody();
         } catch (Exception e) {

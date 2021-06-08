@@ -188,11 +188,11 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         recommendRepository.save(recommend1);
 
         RecommendEntity recommend2 = new RecommendEntity(ProductEnum.MEDICINE.toString(), "2021-06-25"," Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
-        recommend2.setRecommendImage(getImage("src/main/resources/static/images/medicine_offer1.jpg"));
+        recommend2.setRecommendImage(getImage("src/main/resources/static/images/medicine_offer1.png"));
         recommendRepository.save(recommend2);
 
         RecommendEntity recommend3 = new RecommendEntity(ProductEnum.RESTAURANT.toString(), "2021-06-25"," Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
-        recommend3.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT_offer2.jpg"));
+        recommend3.setRecommendImage(getImage("src/main/resources/static/images/RESTAURANT_offer1.jpg"));
         recommendRepository.save(recommend3);
 
         RecommendEntity recommend4 = new RecommendEntity(ProductEnum.CLOTHS.toString(), "2021-06-25", " Get exciting cash back offers and extra discounts on Men and Women Fashion clothing brands");
