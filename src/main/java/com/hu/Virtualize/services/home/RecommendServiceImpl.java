@@ -28,7 +28,7 @@ public class RecommendServiceImpl implements RecommendService {
      * @param date expire date
      * @return status
      */
-    public String insertRecommend(MultipartFile multipartFile, Date date, String category) {
+    public String insertRecommend(MultipartFile multipartFile, Date date, String category, String description) {
 
         // convert MultipartFile into byte array and store in product entity
         Byte[] byteObjects;
@@ -50,6 +50,7 @@ public class RecommendServiceImpl implements RecommendService {
         recommendEntity.setRecommendImage(byteObjects);
         recommendEntity.setEndDate(date);
         recommendEntity.setCategoryType(category);
+        recommendEntity.setDescription(description);
 
         recommendEntity = recommendRepository.save(recommendEntity);
         log.info("Recommendation add successfully.");

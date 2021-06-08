@@ -41,9 +41,9 @@ public class RecommendController {
      */
     @PostMapping("/insert")
     public ResponseEntity<?> insertRecommend(@RequestParam("image") MultipartFile multipartFile, @RequestParam("date")Date date,
-                                             @RequestParam("category")String category) {
+                                             @RequestParam("category")String category, @RequestParam("description") String description) {
         log.info("Insert offer to show on home recommend bar");
-        String status = recommendService.insertRecommend(multipartFile, date, category);
+        String status = recommendService.insertRecommend(multipartFile, date, category, description);
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
