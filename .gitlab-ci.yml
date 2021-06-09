@@ -8,7 +8,7 @@ build:
   only:
   - master
   tags:
-  - blue_collar_backend
+  - virtualize_backend
   script:
     - export DATABASE_NAME=$DATABASE_NAME
     - export DATABASE_USER=$DATABASE_USER
@@ -19,17 +19,18 @@ build:
   artifacts:
     paths:
       - target/
+  when: manual
 deploy_job:
   image: google/cloud-sdk:alpine
   stage: deploy
   only:
   - master
   tags:
-  - blue_collar_backend
+  - virtualize_backend
   dependencies: 
     - build
   before_script:
-  - "ServiceName=bluecollarbackend"
+  - "ServiceName=virtbackend"
   - "echo $ServiceName"
   - |
     cat <<EOF >> app.yaml
@@ -53,8 +54,9 @@ deploy_job:
 
   script:
   - gcloud auth activate-service-account --key-file $CI_PIPELINE_ID.json
-  - gcloud --project hu18-groupa-java app deploy target/Blue-Collar-Job-0.0.1-SNAPSHOT.jar  --appyaml app.yaml --version v1
+  - gcloud --project hu18-groupa-java app deploy  --appyaml app.yaml --version v1
   - url=$(gcloud app services browse $ServiceName --no-launch-browser --project hu18-groupa-java)
   - echo $url
   after_script:
   - rm $CI_PIPELINE_ID.json
+  when: manual
