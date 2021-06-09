@@ -56,4 +56,14 @@ public class ProductController {
         AdminEntity admin = productCreateService.deleteProduct(productCommand);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
+
+    /**
+     * This  function will return all available type of products.
+     * @return list of products.
+     */
+    @GetMapping("/types")
+    public ResponseEntity<?> getAllProductType() {
+        List<String> types = productCreateService.getAllProductType();
+        return new ResponseEntity<>(types,HttpStatus.OK);
+    }
 }
