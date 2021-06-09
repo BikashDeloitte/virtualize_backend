@@ -1,7 +1,7 @@
 package com.hu.Virtualize.controllers.user;
 
 import com.hu.Virtualize.entities.ProductEntity;
-import com.hu.Virtualize.services.user.ProductService;
+import com.hu.Virtualize.services.user.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;

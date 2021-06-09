@@ -1,4 +1,4 @@
-package com.hu.Virtualize.services.admin;
+package com.hu.Virtualize.services.admin.service;
 
 import com.hu.Virtualize.commands.admin.ProductCommand;
 import com.hu.Virtualize.entities.AdminEntity;

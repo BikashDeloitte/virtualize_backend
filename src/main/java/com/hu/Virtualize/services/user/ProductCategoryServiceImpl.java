@@ -4,6 +4,7 @@ import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.repositories.ShopRepository;
 import com.hu.Virtualize.repositories.ProductRepository;
 
+import com.hu.Virtualize.services.user.service.ProductCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

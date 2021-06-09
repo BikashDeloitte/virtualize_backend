@@ -2,6 +2,7 @@ package com.hu.Virtualize.services.login;
 
 import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.repositories.AdminRepository;
+import com.hu.Virtualize.services.login.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 @Slf4j
 @Service
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
     @Autowired
     AdminRepository adminRepository;
 

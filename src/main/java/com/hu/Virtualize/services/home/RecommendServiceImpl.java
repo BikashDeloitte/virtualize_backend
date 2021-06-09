@@ -1,7 +1,9 @@
 package com.hu.Virtualize.services.home;
 
+import com.hu.Virtualize.commands.home.RecommendCommand;
 import com.hu.Virtualize.entities.RecommendEntity;
 import com.hu.Virtualize.repositories.RecommendRepository;
+import com.hu.Virtualize.services.home.service.RecommendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,12 +25,42 @@ public class RecommendServiceImpl implements RecommendService {
     }
 
     /**
-     * This function will add the image in recommend bar.
-     * @param multipartFile image
-     * @param date expire date
+     * This function will add the recommend in database.
+     * @param recommendCommand recommend details
+     * @return recommend entity object
+     */
+    public RecommendEntity insertRecommend(RecommendCommand recommendCommand) {
+        RecommendEntity recommendEntity = new RecommendEntity();
+
+        // convert command into entity
+        if(recommendCommand.getCategoryType() != null) {
+            recommendEntity.setCategoryType(recommendCommand.getCategoryType());
+        }
+        if(recommendCommand.getDescription() != null) {
+            recommendEntity.setDescription(recommendCommand.getDescription());
+        }
+        if(recommendCommand.getEndDate() != null) {
+            recommendEntity.setEndDate(Date.valueOf(recommendCommand.getEndDate()));
+        }
+
+        recommendEntity = recommendRepository.save(recommendEntity);
+        return recommendEntity;
+    }
+
+    /**
+     * This function will insert the recommend image in database.
+     * @param recommendId recommend id.
+     * @param multipartFile recommend image
      * @return status
      */
-    public String insertRecommend(MultipartFile multipartFile, Date date, String category, String description) {
+    public String insertRecommendImage(Long recommendId, MultipartFile multipartFile) {
+        Optional<RecommendEntity> recommendEntityOptional = recommendRepository.findById(recommendId);
+
+        if(recommendEntityOptional.isEmpty()) {
+            log.error("Invalid recommend id");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Invalid recommend id");
+        }
+        RecommendEntity recommendEntity = recommendEntityOptional.get();
 
         // convert MultipartFile into byte array and store in product entity
         Byte[] byteObjects;
@@ -45,17 +77,22 @@ public class RecommendServiceImpl implements RecommendService {
             throw new ResponseStatusException(HttpStatus.HTTP_VERSION_NOT_SUPPORTED, e.getMessage());
         }
 
-        RecommendEntity recommendEntity = new RecommendEntity();
-        // set the profile image
+        //update recommend image
         recommendEntity.setRecommendImage(byteObjects);
-        recommendEntity.setEndDate(date);
-        recommendEntity.setCategoryType(category);
-        recommendEntity.setDescription(description);
-
         recommendEntity = recommendRepository.save(recommendEntity);
-        log.info("Recommendation add successfully.");
 
-        return "Recommendation add successfully.";
+        log.info("Update recommend image successfully");
+        return "Update recommend image successfully";
+    }
+
+    /**
+     * This function will delete the recommend entity.
+     * @param recommendId recommend id.
+     * @return status
+     */
+    public String deleteRecommend(Long recommendId) {
+        recommendRepository.deleteById(recommendId);
+        return "Delete recommend successfully";
     }
 
     /**

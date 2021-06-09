@@ -2,6 +2,7 @@ package com.hu.Virtualize.services.user;
 
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.repositories.ProductRepository;
+import com.hu.Virtualize.services.user.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

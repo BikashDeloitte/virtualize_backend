@@ -8,6 +8,7 @@ import com.hu.Virtualize.enums.ProductEnum;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.ProductRepository;
 import com.hu.Virtualize.repositories.ShopRepository;
+import com.hu.Virtualize.services.admin.service.ProductCreateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

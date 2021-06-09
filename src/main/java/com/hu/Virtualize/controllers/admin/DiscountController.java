@@ -2,7 +2,7 @@ package com.hu.Virtualize.controllers.admin;
 
 import com.hu.Virtualize.commands.admin.DiscountCommand;
 import com.hu.Virtualize.entities.AdminEntity;
-import com.hu.Virtualize.services.admin.DiscountService;
+import com.hu.Virtualize.services.admin.service.DiscountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

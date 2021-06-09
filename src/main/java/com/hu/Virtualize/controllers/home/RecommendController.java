@@ -1,14 +1,17 @@
 package com.hu.Virtualize.controllers.home;
 
+import com.hu.Virtualize.commands.home.RecommendCommand;
 import com.hu.Virtualize.entities.RecommendEntity;
-import com.hu.Virtualize.services.home.RecommendService;
+import com.hu.Virtualize.services.home.service.RecommendService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
 import java.util.List;
 
 @Slf4j
@@ -34,16 +36,34 @@ public class RecommendController {
     }
 
     /**
-     * This function will insert image in recommend bar.
-     * @param multipartFile image
-     * @param date expire date (YYYY-MM-DD)
-     * @return status
+     * This function will insert new recommend in list.
+     * @param recommendCommand recommend details.
+     * @return recommend object
      */
     @PostMapping("/insert")
-    public ResponseEntity<?> insertRecommend(@RequestParam("image") MultipartFile multipartFile, @RequestParam("date")Date date,
-                                             @RequestParam("category")String category, @RequestParam("description") String description) {
+    public ResponseEntity<?> insertRecommend(@RequestBody RecommendCommand recommendCommand) {
         log.info("Insert offer to show on home recommend bar");
-        String status = recommendService.insertRecommend(multipartFile, date, category, description);
+        RecommendEntity recommendEntity = recommendService.insertRecommend(recommendCommand);
+        return new ResponseEntity<>(recommendEntity, HttpStatus.OK);
+    }
+
+    /**
+     * This api will insert image for specific recommend
+     * @param recommendId recommend id
+     * @param multipartFile image for recommend
+     * @return 200 OK status
+     */
+    @PostMapping("/insertImage/{recommendId}")
+    public ResponseEntity<String> insertRecommendImage(@PathVariable String recommendId, @RequestParam("image") MultipartFile multipartFile) {
+        log.info("Admin try to change the shop image");
+        String status = recommendService.insertRecommendImage(Long.valueOf(recommendId), multipartFile);
+        return new ResponseEntity<>(status, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/delete/{recommendId}")
+    public ResponseEntity<?> deleteRecommend(@PathVariable String recommendId) {
+        String status = recommendService.deleteRecommend(Long.valueOf(recommendId));
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 

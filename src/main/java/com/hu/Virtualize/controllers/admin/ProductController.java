@@ -2,13 +2,15 @@ package com.hu.Virtualize.controllers.admin;
 
 import com.hu.Virtualize.commands.admin.ProductCommand;
 import com.hu.Virtualize.entities.AdminEntity;
-import com.hu.Virtualize.services.admin.ProductCreateService;
-import com.hu.Virtualize.services.admin.ShopService;
+import com.hu.Virtualize.services.admin.service.ProductCreateService;
+import com.hu.Virtualize.services.admin.service.ShopService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RequestMapping("/admin/product")
