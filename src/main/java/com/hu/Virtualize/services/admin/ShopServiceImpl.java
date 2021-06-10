@@ -215,5 +215,4 @@ public class ShopServiceImpl implements ShopService {
         }
         return shopEntity.get();
     }
-
 }

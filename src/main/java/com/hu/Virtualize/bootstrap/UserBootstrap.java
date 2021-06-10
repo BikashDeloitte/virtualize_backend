@@ -22,6 +22,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 @Slf4j
@@ -34,8 +35,8 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
     @Autowired
     private RecommendRepository recommendRepository;
 
-    private UserRepository userRepository;
-    private AdminRepository adminRepository;
+    private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
     public UserBootstrap(UserRepository userRepository, AdminRepository adminRepository) {
         this.userRepository = userRepository;
@@ -59,8 +60,6 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
         user2 = userRepository.save(user2);
         user3 = userRepository.save(user3);
         user4 = userRepository.save(user4);
-
-        log.info(user1.toString());
 
 //        ------------------------------------------------------------------------------------------------------------
 
@@ -147,8 +146,8 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
 
         medicineShop1.setShopProducts(new HashSet<>(Arrays.asList(medicine1,medicine2)));
-        medicineShop2.setShopProducts(new HashSet<>(Arrays.asList(medicine3)));
-        medicineShop3.setShopProducts(new HashSet<>(Arrays.asList(medicine4)));
+        medicineShop2.setShopProducts(new HashSet<>(Collections.singletonList(medicine3)));
+        medicineShop3.setShopProducts(new HashSet<>(Collections.singletonList(medicine4)));
 
 //        complete medicine shops ---------------------------------------------------------------
 
@@ -158,9 +157,9 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         ProductEntity food1 = new ProductEntity("Pizza",500,restaurant1.getShopName(),ProductEnum.RESTAURANT.toString(),null,null);
         food1.setProductImage(getImage("src/main/resources/static/images/restaurant.jpg"));
-        food1.setProductDiscounts(new HashSet<>(Arrays.asList(new DiscountEntity("First time user",10,"2021-06-06"))));
+        food1.setProductDiscounts(new HashSet<>(Collections.singletonList(new DiscountEntity("First time user", 10, "2021-06-06"))));
 
-        restaurant1.setShopProducts(new HashSet<>(Arrays.asList(food1)));
+        restaurant1.setShopProducts(new HashSet<>(Collections.singletonList(food1)));
 
         // complete restaurant items -----------------------------------------------------------------
 
@@ -256,7 +255,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
             }
             return bytesImage;
         } catch (Exception e) {
-            log.error("Image error: " + e.getMessage());
+
         }
         return null;
     }

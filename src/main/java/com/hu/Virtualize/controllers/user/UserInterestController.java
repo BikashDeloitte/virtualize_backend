@@ -31,7 +31,7 @@ public class UserInterestController {
 
     /**
      * This function will delete the user interest in user list.
-     * @param userInterestCommand user interest detials.
+     * @param userInterestCommand user interest details.
      * @return updated user details.
      */
     @DeleteMapping("/delete")

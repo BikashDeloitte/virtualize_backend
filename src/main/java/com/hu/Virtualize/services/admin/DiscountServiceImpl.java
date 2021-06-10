@@ -48,7 +48,6 @@ public class DiscountServiceImpl implements DiscountService {
         ProductEntity product = productEntity.get();
 
         product.getProductDiscounts().add(discount);
-
         product = productRepository.save(product);
 
         return adminRepository.findByAdminId(discountCommand.getAdminId());

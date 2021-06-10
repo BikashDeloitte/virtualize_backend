@@ -14,3 +14,12 @@ public class LoginCommand {
     // type must be ("USER", "ADMIN" )
     private String type;
 }
+/**
+ * for login enter
+ * id, password and type
+ */
+
+/**
+ * For validity send only
+ * id and type
+ */

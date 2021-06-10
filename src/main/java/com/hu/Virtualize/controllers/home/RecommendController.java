@@ -60,7 +60,6 @@ public class RecommendController {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
-
     @DeleteMapping("/delete/{recommendId}")
     public ResponseEntity<?> deleteRecommend(@PathVariable String recommendId) {
         String status = recommendService.deleteRecommend(Long.valueOf(recommendId));
@@ -110,6 +109,7 @@ public class RecommendController {
             response.setContentType("image/jpeg");
             InputStream is = new ByteArrayInputStream(byteArray);
             IOUtils.copy(is, response.getOutputStream());
+
         } catch (IOException e) {
             log.error("Image fetch error: " + e.getMessage());
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

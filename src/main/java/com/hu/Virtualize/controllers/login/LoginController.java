@@ -5,10 +5,12 @@ import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.commands.login.EmailRequest;
 import com.hu.Virtualize.commands.login.EmailResponse;
 import com.hu.Virtualize.entities.UserEntity;
+
 import com.hu.Virtualize.services.login.service.AdminService;
 import com.hu.Virtualize.services.login.service.ForgotPassword;
 import com.hu.Virtualize.services.login.service.LoginService;
 import com.hu.Virtualize.services.login.service.UsersService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -94,5 +96,37 @@ public class LoginController {
     @GetMapping(value = "/admin/{id}")
     public AdminEntity getAdminById(@PathVariable Long id){
         return adminService.getAdminById(id);
+    }
+
+    /**
+     * This function will check the email is present or not in database.
+     * @param loginCommand login command contains - id and type.
+     * @return status
+     */
+    @PostMapping("/validEmail")
+    public ResponseEntity<?> validEmail(@RequestBody LoginCommand loginCommand) {
+        Boolean status = loginService.validEmail(loginCommand);
+
+        if(status) {
+            return new ResponseEntity<>(true,HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * This function will update the password .
+     * @param loginCommand login details must give id, password and type
+     * @return user object
+     */
+    @PostMapping("/updatePassword")
+    public ResponseEntity<?> updatePassword(@RequestBody LoginCommand loginCommand) {
+        Object obj = loginService.updatePassword(loginCommand);
+        if(obj == null ) {
+            log.error("Wrong username or password. Please enter correct details");
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(obj, HttpStatus.OK);
+        }
     }
 }
