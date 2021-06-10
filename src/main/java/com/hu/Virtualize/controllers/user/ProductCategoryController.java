@@ -1,6 +1,6 @@
 package com.hu.Virtualize.controllers.user;
 
-import com.hu.Virtualize.services.user.ProductCategoryService;
+import com.hu.Virtualize.services.user.service.ProductCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

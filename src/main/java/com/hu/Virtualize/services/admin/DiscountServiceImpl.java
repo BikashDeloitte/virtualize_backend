@@ -6,6 +6,7 @@ import com.hu.Virtualize.entities.DiscountEntity;
 import com.hu.Virtualize.entities.ProductEntity;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.ProductRepository;
+import com.hu.Virtualize.services.admin.service.DiscountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,6 @@ public class DiscountServiceImpl implements DiscountService {
         ProductEntity product = productEntity.get();
 
         product.getProductDiscounts().add(discount);
-
         product = productRepository.save(product);
 
         return adminRepository.findByAdminId(discountCommand.getAdminId());

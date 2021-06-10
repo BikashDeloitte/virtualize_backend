@@ -1,5 +1,6 @@
 package com.hu.Virtualize.services.login;
 
+import com.hu.Virtualize.services.login.service.ForgotPassword;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

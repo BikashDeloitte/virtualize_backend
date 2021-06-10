@@ -8,6 +8,7 @@ import com.hu.Virtualize.enums.ProductEnum;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.ProductRepository;
 import com.hu.Virtualize.repositories.ShopRepository;
+import com.hu.Virtualize.services.admin.service.ProductCreateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,7 +81,6 @@ public class ProductCreateServiceImpl implements ProductCreateService {
         for(ProductEntity product: shop.getShopProducts()) {
             if(product.getProductId().equals(productCommand.getProductId())) {
                 shopProduct = product;
-
                 shopProduct = convert(shopProduct, productCommand);
                 break;
             }
@@ -146,32 +146,30 @@ public class ProductCreateServiceImpl implements ProductCreateService {
      * @return product entity
      */
     ProductEntity convert(ProductEntity productEntity, ProductCommand productCommand) {
-        ProductEntity product = productEntity;
-
         // update all details
         if(productCommand.getProductName() != null) {
-            product.setProductName(productCommand.getProductName());
+            productEntity.setProductName(productCommand.getProductName());
         }
 
         if(productCommand.getProductPrice() != null) {
-            product.setProductPrice(productCommand.getProductPrice());
+            productEntity.setProductPrice(productCommand.getProductPrice());
         }
         if(productCommand.getBrandName() != null) {
-            product.setBrandName(productCommand.getBrandName());
+            productEntity.setBrandName(productCommand.getBrandName());
         }
         if(productCommand.getCategoryType() != null) {
-            product.setCategoryType(productCommand.getCategoryType());
+            productEntity.setCategoryType(productCommand.getCategoryType());
         }
         if(productCommand.getProductType() != null) {
-            product.setProductType(productCommand.getProductType());
+            productEntity.setProductType(productCommand.getProductType());
         }
         if(productCommand.getProductDescription() != null) {
-            product.setProductDescription(productCommand.getProductDescription());
+            productEntity.setProductDescription(productCommand.getProductDescription());
         }
         if(productCommand.getProductImage() != null) {
-            product.setProductImage(productCommand.getProductImage());
+            productEntity.setProductImage(productCommand.getProductImage());
         }
-        return product;
+        return productEntity;
     }
 
     /**

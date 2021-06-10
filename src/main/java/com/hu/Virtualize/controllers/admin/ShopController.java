@@ -3,8 +3,7 @@ package com.hu.Virtualize.controllers.admin;
 import com.hu.Virtualize.commands.admin.ShopCommand;
 import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.ShopEntity;
-import com.hu.Virtualize.services.admin.ShopService;
-import com.hu.Virtualize.services.user.ProductService;
+import com.hu.Virtualize.services.admin.service.ShopService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,6 @@ public class ShopController {
 
     @Autowired
     private ShopService shopService;
-
-    @Autowired
-    private ProductService productService;
 
     /**
      * This api will help you to add new shop under admin.

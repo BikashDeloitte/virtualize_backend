@@ -1,4 +1,4 @@
-package com.hu.Virtualize.services.user;
+package com.hu.Virtualize.services.user.service;
 
 import java.util.List;
 

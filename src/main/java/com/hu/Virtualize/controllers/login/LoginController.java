@@ -5,11 +5,12 @@ import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.commands.login.EmailRequest;
 import com.hu.Virtualize.commands.login.EmailResponse;
 import com.hu.Virtualize.entities.UserEntity;
-import com.hu.Virtualize.services.login.AdminService;
-import com.hu.Virtualize.services.login.ForgotPassword;
-import com.hu.Virtualize.services.login.LoginService;
-import com.hu.Virtualize.services.login.UsersService;
-import lombok.extern.java.Log;
+
+import com.hu.Virtualize.services.login.service.AdminService;
+import com.hu.Virtualize.services.login.service.ForgotPassword;
+import com.hu.Virtualize.services.login.service.LoginService;
+import com.hu.Virtualize.services.login.service.UsersService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -4,6 +4,7 @@ import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.UserEntity;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.UserRepository;
+import com.hu.Virtualize.services.login.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,11 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private AdminRepository adminRepository;
 
+    /**
+     * This function will register new user.
+     * @param userEntity user details.
+     * @return user entity
+     */
     @Override
     public UserEntity addUser(UserEntity userEntity) {
         UserEntity local = new UserEntity();
@@ -45,6 +51,11 @@ public class UsersServiceImpl implements UsersService {
         return local;
     }
 
+    /**
+     * This function will register new admin.
+     * @param adminEntity admin details.
+     * @return admin entity.
+     */
     public AdminEntity addAdmin(AdminEntity adminEntity) {
         Optional<AdminEntity> duplicateEntity = adminRepository.findByAdminEmail(adminEntity.getAdminEmail());
 

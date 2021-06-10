@@ -5,6 +5,7 @@ import com.hu.Virtualize.entities.AdminEntity;
 import com.hu.Virtualize.entities.ShopEntity;
 import com.hu.Virtualize.repositories.AdminRepository;
 import com.hu.Virtualize.repositories.ShopRepository;
+import com.hu.Virtualize.services.admin.service.ShopService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -214,5 +215,4 @@ public class ShopServiceImpl implements ShopService {
         }
         return shopEntity.get();
     }
-
 }

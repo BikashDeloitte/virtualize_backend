@@ -1,4 +1,4 @@
-package com.hu.Virtualize.services.user;
+package com.hu.Virtualize.services.user.service;
 
 import com.hu.Virtualize.entities.ProductEntity;
 import org.springframework.web.multipart.MultipartFile;

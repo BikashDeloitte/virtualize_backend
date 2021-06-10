@@ -1,4 +1,4 @@
-package com.hu.Virtualize.services.login;
+package com.hu.Virtualize.services.login.service;
 
 import com.hu.Virtualize.commands.login.LoginCommand;
 
