@@ -51,7 +51,7 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     public void testDataBase() {
         // add user1 in database
-        UserEntity user1 = new UserEntity("Zhatab","z@gmail.com",passwordEncoder.encode("123"),null);
+        UserEntity user1 = new UserEntity("Zhatab","zhatabsaifi1@gmail.com",passwordEncoder.encode("123"),null);
         UserEntity user2 = new UserEntity("Praveen", "p@gmail.com",passwordEncoder.encode("123"),null);
         UserEntity user3 = new UserEntity("Bikash", "b@gmail.com",passwordEncoder.encode("123"),null);
         UserEntity user4 = new UserEntity("Shahansk", "s@gmail.com",passwordEncoder.encode("123"),null);
@@ -165,8 +165,8 @@ public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
 //        Admin work-----------------------------------------------------------------
         AdminEntity admin1 = new AdminEntity("zsaifi","zsaifi@deloitte.com",passwordEncoder.encode("123"));
-        AdminEntity admin2 = new AdminEntity("praveen","parveen@deloitte.com",passwordEncoder.encode("123"));
-        AdminEntity admin3 = new AdminEntity("Shah...","s@deloitte.com",passwordEncoder.encode("123"));
+        AdminEntity admin2 = new AdminEntity("praveen","pravtripathi@deloitte.com",passwordEncoder.encode("123"));
+        AdminEntity admin3 = new AdminEntity("Shahank","ssrivastavakumar@deloitte.com",passwordEncoder.encode("123"));
 
         admin1.setAdminShops(new HashSet<>(Arrays.asList(clothShop1,medicineShop1,restaurant1)));
         admin2.setAdminShops(new HashSet<>(Arrays.asList(clothShop2,medicineShop2)));
