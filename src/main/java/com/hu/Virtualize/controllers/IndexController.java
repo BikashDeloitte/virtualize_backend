@@ -14,4 +14,9 @@ public class IndexController {
     public String index() {
         return "Hello virtualize";
     }
+
+    @GetMapping("/_ah/start")
+    public String start() {
+        return "Everything working";
+    }
 }
