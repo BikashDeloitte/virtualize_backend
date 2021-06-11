@@ -21,7 +21,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         String frontendUrl = env.getProperty("frontend.url");
-        registry.addMapping("/**") .allowedOrigins(frontendUrl);
+        registry.addMapping("/**") .allowedOrigins("*");
     }
 
     /**
