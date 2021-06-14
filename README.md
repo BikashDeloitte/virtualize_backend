@@ -1,4 +1,4 @@
-This repo is used for backend code for vartualize project.
+This repo is used for backend code of virtualize project.
 
 Create Database in postgres to run this application.
 
