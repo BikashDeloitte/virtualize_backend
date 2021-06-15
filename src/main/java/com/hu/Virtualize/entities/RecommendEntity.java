@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 import java.sql.Date;
 
 @Data
@@ -19,6 +20,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
+@Table(name = "RecommendEntity")
 public class RecommendEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

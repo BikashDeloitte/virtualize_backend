@@ -15,6 +15,7 @@ import java.util.Set;
 @Data
 @RequiredArgsConstructor
 @Entity
+@Table(name = "ShopEntity")
 public class ShopEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
